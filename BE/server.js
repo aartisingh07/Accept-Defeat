@@ -12,6 +12,8 @@ const app = express()
 const PORT = process.env.PORT || 5000
 const JWT_SECRET = process.env.JWT_SECRET || 'accept_defeat_secret_key_123'
 
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
+
 //Middlewares
 app.use(express.json())
 app.use(cors())
@@ -244,19 +246,19 @@ app.get("/api/auth/oauth/github/callback", async(req, res)=>{
         }
 
         const token = generateToken(user._id)
-        return res.redirect(`${process.env.CLIENT_URL}/auth/callback?token=${token}`)
+        return res.redirect(`${CLIENT_URL}/auth/callback?token=${token}`);
     }
     catch(err) {
         console.error("Github OAuth Error: ", err)
-        return res.redirect(`${process.env.CLIENT_URL}/auth/callback?error=OAuth+authentication+failed`)
+        return res.redirect(`${CLIENT_URL}/auth/callback?error=OAuth+authentication+failed`);
     }
 })
 
 //Google OAuth
 app.get("/api/auth/oauth/google", (req, res)=>{
-    const rootUrl = 'https://accounts.google.com/o/oauth/v2/auth'
+    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
     const options = {
-        redirect_uri : 'http://localhost:5000/api/auth/oauth.google/callback',
+        redirect_uri : 'http://localhost:5000/api/auth/oauth/google/callback',
         client_id : process.env.GOOGLE_CLIENT_ID,
         access_type : "offline",
         response_type : "code",
@@ -277,7 +279,7 @@ app.get("/api/auth/oauth/google/callback", async(req, res)=>{
 
         const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
             method : "POST",
-            headers : {"Content-Type" : "application/x-www-form-ulrencoded"},
+            headers : {"Content-Type" : "application/x-www-form-urlencoded"},
             body : new URLSearchParams({
                 code,
                 client_id : process.env.GOOGLE_CLIENT_ID,
@@ -303,11 +305,11 @@ app.get("/api/auth/oauth/google/callback", async(req, res)=>{
         }
 
         const token = generateToken(user._id)
-        return res.redirect(`${process.env.CLIENT_URL}/auth/callback?token=${token}`)
+        return res.redirect(`${CLIENT_URL}/auth/callback?token=${token}`);
     }
     catch(err) {
         console.error("Google OAuth Error: ", err)
-        return res.redirect(`${process.env.CLIENT_URL}/auth/callback?error=OAuth+authentication+failed`)
+        return res.redirect(`${CLIENT_URL}/auth/callback?error=OAuth+authentication+failed`);
     }
 })
 
