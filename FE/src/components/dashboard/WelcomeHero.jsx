@@ -16,8 +16,7 @@ export default function WelcomeHero() {
     return 'Good Evening';
   };
 
-  const username = user?.username || 'Developer';
-  const firstName = user?.name ? user.name.split(' ')[0] : username.charAt(0).toUpperCase() + username.slice(1);
+  const displayName = user?.name?.trim() || user?.username || 'Developer';
 
   return (
     <div className="relative w-full rounded-3xl bg-gradient-to-r from-[#0E172C] via-[#10182E] to-[#141A35] border border-purple-500/20 p-6 sm:p-7 overflow-hidden shadow-2xl">
@@ -34,7 +33,7 @@ export default function WelcomeHero() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-            <span>{firstName}</span>
+            <span>{displayName}</span>
             <span className="inline-block animate-bounce origin-bottom">👋</span>
           </h1>
 
@@ -91,7 +90,7 @@ export default function WelcomeHero() {
             <div className="space-y-1.5 flex-1 text-left">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-white flex items-center gap-1">
-                  <span>Hey {firstName}!</span>
+                  <span>Hey {displayName}!</span>
                   <span className="text-purple-400">👋</span>
                 </span>
                 <button

@@ -31,8 +31,9 @@ export default function Topbar({ onMenuClick }) {
   const displayName = user?.name || username.charAt(0).toUpperCase() + username.slice(1);
   const handleTag = `@${username.toLowerCase().replace(/\s+/g, '_')}`;
   const avatarUrl =
-    user?.avatar ||
-    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80';
+    user?.avatar && !user.avatar.includes('unsplash')
+      ? user.avatar
+      : '/default-avatar.png';
 
   return (
     <header className="h-16 px-4 sm:px-6 lg:px-8 bg-[#080D1B]/80 backdrop-blur-md border-b border-purple-500/15 flex items-center justify-between sticky top-0 z-30">

@@ -23,6 +23,12 @@ api.interceptors.request.use(
     if (tabId) {
       config.headers['x-tab-id'] = tabId;
     }
+
+    // When sending FormData, delete Content-Type so Axios/browser sets multipart/form-data with the correct boundary
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+    }
+
     return config;
   },
   (error) => Promise.reject(error)

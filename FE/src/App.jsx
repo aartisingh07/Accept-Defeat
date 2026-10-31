@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import ExploreChallengesPage from './pages/ExploreChallengesPage';
 import OAuthCallbackPage from './pages/OAuthCallbackPage';
+import ProfilePage from './pages/ProfilePage';
 import {
   LiveBattlesPage,
   CreateChallengePage,
@@ -13,7 +14,6 @@ import {
   MessagesPage,
   DevelopersPage,
   LeaderboardPage,
-  ProfilePage,
   SettingsPage,
 } from './pages/PlaceholderDashboardPages';
 
