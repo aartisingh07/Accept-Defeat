@@ -1,17 +1,22 @@
 import api from './api';
+import { getTabId, isAnyTabActive } from '../utils/tabSession';
 
 export const authService = {
   /**
-   * User Login
+   * User Login with Tab Identification and Liveness Check
    * @param {Object} credentials
-   * @param {string} credentials.identifier - Email or Username
-   * @param {string} credentials.password - Password
    */
   async login({ identifier, password }) {
     try {
+      // Check if another active tab is truly still open in this browser
+      const otherTabAlive = await isAnyTabActive();
+      const forceReset = !otherTabAlive;
+
       const response = await api.post('/auth/login', {
         identifier: identifier.trim(),
         password,
+        tabId: getTabId(),
+        forceReset,
       });
       return response.data;
     } catch (err) {
@@ -29,7 +34,7 @@ export const authService = {
   },
 
   /**
-   * User Registration
+   * User Registration with Tab Identification
    * @param {Object} userData
    */
   async signup({ username, email, password }) {
@@ -38,6 +43,7 @@ export const authService = {
         username: username.trim(),
         email: email.trim().toLowerCase(),
         password,
+        tabId: getTabId(),
       });
       return response.data;
     } catch (err) {
@@ -78,6 +84,17 @@ export const authService = {
   },
 
   /**
+   * Heartbeat to keep backend session alive during active user interaction
+   */
+  async pingActivity() {
+    try {
+      await api.post('/auth/activity');
+    } catch {
+      // Ignore background heartbeat errors
+    }
+  },
+
+  /**
    * Password Reset Request
    */
   async requestPasswordReset(email) {
@@ -101,11 +118,12 @@ export const authService = {
   },
 
   /**
-   * Get OAuth redirection URL
+   * Get OAuth redirection URL with tabId preservation
    */
   getOAuthUrl(provider) {
     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-    return `${baseURL}/auth/oauth/${provider}`;
+    const tabId = getTabId();
+    return `${baseURL}/auth/oauth/${provider}?tabId=${encodeURIComponent(tabId)}`;
   },
 };
 

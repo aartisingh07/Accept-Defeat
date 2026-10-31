@@ -1,21 +1,28 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import authService from '../services/authService';
 import { AuthContext } from './AuthContextDef';
+import {
+  getTabToken,
+  setTabToken,
+  getTabUser,
+  setTabUser,
+  clearTabSession,
+} from '../utils/tabSession';
+
+const IDLE_LIMIT_MS = 15 * 60 * 1000; // 15 Minutes idle limit
+const PING_THROTTLE_MS = 60 * 1000;   // Throttled heartbeat at most once per 60 seconds
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem('ad_auth_token'));
-  const [user, setUser] = useState(() => {
-    try {
-      const stored = localStorage.getItem('ad_auth_user');
-      return stored ? JSON.parse(stored) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [token, setToken] = useState(() => getTabToken());
+  const [user, setUser] = useState(() => getTabUser());
   const [isLoading] = useState(false);
   const [authError, setAuthError] = useState(null);
+  const [sessionNotice, setSessionNotice] = useState(null);
 
-  // Background profile sync on initial load if token exists
+  const lastActivityRef = useRef(0);
+  const lastPingRef = useRef(0);
+
+  // Background profile sync on initial load if token exists in this tab
   useEffect(() => {
     let isMounted = true;
     if (token) {
@@ -24,11 +31,14 @@ export function AuthProvider({ children }) {
         .then((fresh) => {
           if (isMounted && fresh) {
             setUser(fresh);
-            localStorage.setItem('ad_auth_user', JSON.stringify(fresh));
+            setTabUser(fresh);
           }
         })
         .catch(() => {
-          // Keep existing cached profile
+          // If server rejects session on load, clear tab state
+          clearTabSession();
+          setUser(null);
+          setToken(null);
         });
     }
     return () => {
@@ -36,37 +46,103 @@ export function AuthProvider({ children }) {
     };
   }, [token]);
 
+  // Handle session timeout events dispatched from api.js interceptor
+  useEffect(() => {
+    const handleExpired = (e) => {
+      const reason = e.detail?.reason;
+      setUser(null);
+      setToken(null);
+      setSessionNotice(
+        reason === 'idle'
+          ? 'Your session expired due to inactivity. Please log in again.'
+          : 'Your session has expired. Please log in again.'
+      );
+    };
+
+    const handleDuplicated = () => {
+      setUser(null);
+      setToken(null);
+    };
+
+    window.addEventListener('ad_session_expired', handleExpired);
+    window.addEventListener('ad_tab_duplicated', handleDuplicated);
+    return () => {
+      window.removeEventListener('ad_session_expired', handleExpired);
+      window.removeEventListener('ad_tab_duplicated', handleDuplicated);
+    };
+  }, []);
+
+  // Idle Timer & Activity Listener (Requirement 2)
+  useEffect(() => {
+    if (!token) return;
+
+    const onUserActivity = () => {
+      const now = Date.now();
+      lastActivityRef.current = now;
+
+      // Throttle backend activity ping to at most once per 60s
+      if (now - lastPingRef.current > PING_THROTTLE_MS) {
+        lastPingRef.current = now;
+        authService.pingActivity();
+      }
+    };
+
+    const activityEvents = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
+    activityEvents.forEach((evt) =>
+      window.addEventListener(evt, onUserActivity, { passive: true })
+    );
+
+    // Periodically verify idle timeout every 15 seconds
+    const interval = setInterval(() => {
+      if (Date.now() - lastActivityRef.current > IDLE_LIMIT_MS) {
+        clearTabSession();
+        setUser(null);
+        setToken(null);
+        setSessionNotice('Your session expired due to inactivity. Please log in again.');
+      }
+    }, 15000);
+
+    return () => {
+      clearInterval(interval);
+      activityEvents.forEach((evt) => window.removeEventListener(evt, onUserActivity));
+    };
+  }, [token]);
+
   const login = async ({ identifier, password }) => {
     setAuthError(null);
+    setSessionNotice(null);
     const data = await authService.login({ identifier, password });
 
     if (data.token) {
-      localStorage.setItem('ad_auth_token', data.token);
+      setTabToken(data.token);
       setToken(data.token);
     }
 
     if (data.user) {
-      localStorage.setItem('ad_auth_user', JSON.stringify(data.user));
+      setTabUser(data.user);
       setUser(data.user);
     }
 
+    lastActivityRef.current = Date.now();
     return data;
   };
 
   const signup = async ({ username, email, password }) => {
     setAuthError(null);
+    setSessionNotice(null);
     const data = await authService.signup({ username, email, password });
 
     if (data.token) {
-      localStorage.setItem('ad_auth_token', data.token);
+      setTabToken(data.token);
       setToken(data.token);
     }
 
     if (data.user) {
-      localStorage.setItem('ad_auth_user', JSON.stringify(data.user));
+      setTabUser(data.user);
       setUser(data.user);
     }
 
+    lastActivityRef.current = Date.now();
     return data;
   };
 
@@ -74,8 +150,7 @@ export function AuthProvider({ children }) {
     try {
       await authService.logout();
     } finally {
-      localStorage.removeItem('ad_auth_token');
-      localStorage.removeItem('ad_auth_user');
+      clearTabSession();
       setUser(null);
       setToken(null);
     }
@@ -84,7 +159,7 @@ export function AuthProvider({ children }) {
   const updateUser = (updatedFields) => {
     setUser((prev) => {
       const next = { ...prev, ...updatedFields };
-      localStorage.setItem('ad_auth_user', JSON.stringify(next));
+      setTabUser(next);
       return next;
     });
   };
@@ -93,16 +168,20 @@ export function AuthProvider({ children }) {
     const freshUser = await authService.getCurrentUser();
     if (freshUser) {
       setUser(freshUser);
-      localStorage.setItem('ad_auth_user', JSON.stringify(freshUser));
+      setTabUser(freshUser);
     }
   }, []);
 
+  const hasActiveSession = Boolean((token || getTabToken()) && (user || getTabUser()));
+
   const value = {
-    user,
-    token,
-    isAuthenticated: Boolean(token && user),
+    user: user || getTabUser(),
+    token: token || getTabToken(),
+    isAuthenticated: hasActiveSession,
     isLoading,
     authError,
+    sessionNotice,
+    clearSessionNotice: () => setSessionNotice(null),
     setAuthError,
     login,
     signup,

@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import BrandLogo from '../components/BrandLogo';
 import { AlertCircle } from 'lucide-react';
+import { setTabToken, setTabId } from '../utils/tabSession';
 
 export default function OAuthCallbackPage() {
   const [searchParams] = useSearchParams();
@@ -18,8 +19,13 @@ export default function OAuthCallbackPage() {
 
   useEffect(() => {
     const token = searchParams.get('token');
+    const returnedTabId = searchParams.get('tabId');
+
     if (!error && token) {
-      localStorage.setItem('ad_auth_token', token);
+      if (returnedTabId) {
+        setTabId(returnedTabId);
+      }
+      setTabToken(token);
       refreshSession()
         .then(() => {
           navigate('/dashboard', { replace: true });

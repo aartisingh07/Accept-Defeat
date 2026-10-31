@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/useAuth';
 import AuthLoadingScreen from './AuthLoadingScreen';
+import { getTabToken } from '../../utils/tabSession';
 
 export default function PublicOnlyRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -10,8 +11,15 @@ export default function PublicOnlyRoute({ children }) {
     return <AuthLoadingScreen />;
   }
 
-  if (isAuthenticated) {
-    const intendedPath = location.state?.from?.pathname || '/dashboard';
+  const hasAuth = isAuthenticated || Boolean(getTabToken());
+
+  if (hasAuth) {
+    const intendedPath =
+      location.state?.from?.pathname &&
+      location.state.from.pathname !== '/login' &&
+      location.state.from.pathname !== '/'
+        ? location.state.from.pathname
+        : '/dashboard';
     return <Navigate to={intendedPath} replace />;
   }
 

@@ -13,7 +13,7 @@ export default function LoginForm({ onSwitchTab, onForgotPassword }) {
   const [serverError, setServerError] = useState('');
   const [serverSuccess, setServerSuccess] = useState('');
 
-  const { login } = useAuth();
+  const { login, sessionNotice, clearSessionNotice } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,7 +45,12 @@ export default function LoginForm({ onSwitchTab, onForgotPassword }) {
       const targetUser = data.user?.username || identifier;
       setServerSuccess(`Welcome back, ${targetUser}! Entering arena...`);
 
-      const destination = location.state?.from?.pathname || '/dashboard';
+      const destination =
+        location.state?.from?.pathname &&
+        location.state.from.pathname !== '/login' &&
+        location.state.from.pathname !== '/'
+          ? location.state.from.pathname
+          : '/dashboard';
       navigate(destination, { replace: true });
     } catch (err) {
       setServerError(err.message || 'Authentication failed. Please verify credentials.');
@@ -80,12 +85,35 @@ export default function LoginForm({ onSwitchTab, onForgotPassword }) {
         </span>
       </div>
 
+      {/* Session Expiration / Inactivity Notice */}
+      {sessionNotice && (
+        <div className="mb-4 p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs text-amber-200 flex items-start justify-between gap-2 animate-fadeIn">
+          <div className="flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <span>{sessionNotice}</span>
+          </div>
+          <button
+            type="button"
+            onClick={clearSessionNotice}
+            className="text-amber-400 hover:text-white text-xs px-1 cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Server Feedback Notices */}
       {serverError && (
         <div className="mb-4 p-3 rounded-xl bg-red-950/40 border border-red-500/30 text-xs text-red-200 flex items-start gap-2.5">
           <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
           <div className="flex-1">
-            <span className="font-semibold block text-red-300">Connection Error</span>
+            <span className="font-semibold block text-red-300">
+              {serverError.includes('another tab')
+                ? 'Session Conflict'
+                : serverError.includes('Cannot connect')
+                ? 'Connection Error'
+                : 'Authentication Error'}
+            </span>
             <span>{serverError}</span>
           </div>
         </div>
