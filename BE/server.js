@@ -30,6 +30,15 @@ const userSchema = mongoose.Schema({
         trim : true,
         minlength : 3
     },
+    usernameLastChangedAt :{
+        type : Date,
+        default : null
+    },
+    name : {
+        type : String,
+        trim : true,
+        default : ""
+    },
     email : {
         type : String,
         required : true,
@@ -42,11 +51,30 @@ const userSchema = mongoose.Schema({
         required : true,
         minlength : 6
     },
+    phone : {
+        type : String,
+        default : null
+    },
+    phoneVisibility : {
+        type : String,
+        enum : ["private", "public"],
+        default : 'private'
+    },
+    socialLinks : {
+        linkedin : { type : String, default : ""},
+        github : { type : String, default : ""},
+        leetcode : { type : String, default : ""},
+        other : [{name : { type : String, trim : true}, url : { type : String, trim : true }}]
+    },
     skills : {
         type : [String], 
-        default : ["None"]
+        default : []
     },
     points : {
+        type : Number,
+        default : 0
+    },
+    rank : {
         type : Number,
         default : 0
     },
@@ -54,9 +82,17 @@ const userSchema = mongoose.Schema({
         type : Number,
         default : 0
     },
+    battlesWon : {
+        type : Number,
+        default : 0
+    },
     avatar: {
         type: String,
-        default: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+        default: '/default-avatar.png',
+    },
+    avatarPublicId: {
+        type: String,
+        default: null,
     },
     createdAt : {
         type : Date,
@@ -211,6 +247,7 @@ app.post("/api/auth/login", async(req, res)=>{
             user : {
                 id : user._id,
                 username : user.username,
+                name : user.name || "",
                 email : user.email
             },
             token
@@ -288,6 +325,8 @@ const authenticateToken = (req, res, next)=>{
         next()
     })
 }
+const profileRoutes = require("./routes/profileRoutes")
+app.use("/api/users", profileRoutes(authenticateToken))
 
 app.get("/api/auth/me", authenticateToken, async(req, res)=>{
     try {
@@ -297,6 +336,7 @@ app.get("/api/auth/me", authenticateToken, async(req, res)=>{
         return res.status(200).json({
             id : user._id,
             username : user.username,
+            name : user.name || "",
             email : user.email,
             skills : user.skills || ["React", "Node.js", "MongoDB", "JavaScript"],
             createdAt : user.createdAt

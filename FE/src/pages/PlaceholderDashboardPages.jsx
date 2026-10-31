@@ -221,7 +221,7 @@ export function ProfilePage() {
       <div className="space-y-4">
         <div className="flex items-center gap-4">
           <img
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+            src="/default-avatar.png"
             alt="Avatar"
             className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-500/40"
           />
