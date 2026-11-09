@@ -8,10 +8,10 @@ function PageShell({ icon: Icon, title, description, children }) {
       <div className="max-w-6xl mx-auto space-y-6 text-left">
         <div>
           <div className="flex items-center gap-2">
-            <Icon className="w-5 h-5 text-purple-400" />
-            <h1 className="text-2xl font-bold text-white tracking-tight">{title}</h1>
+            <Icon className="w-5 h-5 text-[#1D2D44]" />
+            <h1 className="text-2xl font-bold text-[#0D1321] tracking-tight">{title}</h1>
           </div>
-          <p className="text-xs text-slate-400 mt-1">{description}</p>
+          <p className="text-xs text-[#3E5C76] mt-1">{description}</p>
         </div>
 
         <div className="dashboard-card rounded-2xl p-6">{children}</div>
@@ -28,16 +28,16 @@ export function LiveBattlesPage() {
       description="Compete in real-time 1v1 algorithmic duels with live test execution"
     >
       <div className="py-12 text-center space-y-3">
-        <div className="w-12 h-12 rounded-2xl bg-purple-500/15 border border-purple-500/30 text-purple-400 flex items-center justify-center mx-auto">
+        <div className="w-12 h-12 rounded-2xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#1D2D44] flex items-center justify-center mx-auto shadow-sm">
           <Swords className="w-6 h-6" />
         </div>
-        <h3 className="text-base font-bold text-white">Live Battle Arena Matchmaking</h3>
-        <p className="text-xs text-slate-400 max-w-sm mx-auto">
+        <h3 className="text-base font-bold text-[#0D1321]">Live Battle Arena Matchmaking</h3>
+        <p className="text-xs text-[#3E5C76] max-w-sm mx-auto">
           Ready to duel? Queue up for a 15-minute speed debugging match against an opponent in your ELO bracket.
         </p>
         <button
           onClick={() => alert('Searching for opponent in ELO bracket 1200-1300...')}
-          className="btn-primary-purple px-5 py-2.5 rounded-xl text-xs font-semibold text-white cursor-pointer"
+          className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-5 py-2.5 rounded-xl text-xs font-semibold text-[#F0EBD8] cursor-pointer shadow-sm hover:shadow"
         >
           Find Match
         </button>
@@ -58,50 +58,50 @@ export function CreateChallengePage() {
           e.preventDefault();
           alert('Challenge created and sent to review pipeline!');
         }}
-        className="space-y-4 max-w-2xl"
+        className="space-y-4 max-w-2xl text-[#0D1321]"
       >
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-slate-300">Challenge Title</label>
+          <label className="text-xs font-semibold text-[#0D1321]">Challenge Title</label>
           <input
             type="text"
             required
             placeholder="e.g. Memory Leak in WebSocket Listener Pool"
-            className="w-full h-10 px-3 rounded-xl bg-[#070B14] border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500"
+            className="w-full h-10 px-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] focus:outline-none focus:border-[#1D2D44]"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Difficulty</label>
-            <select className="w-full h-10 px-3 rounded-xl bg-[#070B14] border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500">
+            <label className="text-xs font-semibold text-[#0D1321]">Difficulty</label>
+            <select className="w-full h-10 px-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] focus:outline-none focus:border-[#1D2D44]">
               <option>Easy (50-100 pts)</option>
               <option>Medium (150-250 pts)</option>
               <option>Hard (300-500 pts)</option>
             </select>
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-300">Technology Tag</label>
+            <label className="text-xs font-semibold text-[#0D1321]">Technology Tag</label>
             <input
               type="text"
               placeholder="React, Node.js, Express"
-              className="w-full h-10 px-3 rounded-xl bg-[#070B14] border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500"
+              className="w-full h-10 px-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] focus:outline-none focus:border-[#1D2D44]"
             />
           </div>
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-slate-300">Bug Scenario Description</label>
+          <label className="text-xs font-semibold text-[#0D1321]">Bug Scenario Description</label>
           <textarea
             rows={4}
             required
             placeholder="Describe the bug symptoms, environment, and expected behavior..."
-            className="w-full p-3 rounded-xl bg-[#070B14] border border-slate-700 text-xs text-white focus:outline-none focus:border-purple-500"
+            className="w-full p-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] focus:outline-none focus:border-[#1D2D44]"
           />
         </div>
 
         <button
           type="submit"
-          className="btn-primary-purple px-5 py-2.5 rounded-xl text-xs font-semibold text-white cursor-pointer"
+          className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-5 py-2.5 rounded-xl text-xs font-semibold text-[#F0EBD8] cursor-pointer shadow-sm hover:shadow"
         >
           Publish Challenge
         </button>
@@ -117,8 +117,8 @@ export function MyChallengesPage() {
       title="My Challenges"
       description="Track challenges you have created, attempted, or solved"
     >
-      <div className="py-8 text-center text-xs text-slate-400 space-y-2">
-        <FileCode2 className="w-8 h-8 text-purple-400 mx-auto" />
+      <div className="py-8 text-center text-xs text-[#3E5C76] space-y-2">
+        <FileCode2 className="w-8 h-8 text-[#1D2D44] mx-auto" />
         <p>You have 8 active in-progress challenge attempts and 12 completed solves.</p>
       </div>
     </PageShell>
@@ -140,13 +140,13 @@ export function MessagesPage() {
         ].map((m, idx) => (
           <div
             key={idx}
-            className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between"
+            className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between"
           >
             <div>
-              <div className="text-xs font-bold text-white">{m.sender}</div>
-              <div className="text-xs text-slate-400">{m.preview}</div>
+              <div className="text-xs font-bold text-[#0D1321]">{m.sender}</div>
+              <div className="text-xs text-[#3E5C76]">{m.preview}</div>
             </div>
-            <span className="text-[10px] text-slate-500 shrink-0">{m.time}</span>
+            <span className="text-[10px] text-[#3E5C76] shrink-0 font-mono">{m.time}</span>
           </div>
         ))}
       </div>
@@ -161,7 +161,7 @@ export function DevelopersPage() {
       title="Developers Directory"
       description="Connect with competitive software engineers across the globe"
     >
-      <p className="text-xs text-slate-400">
+      <p className="text-xs text-[#3E5C76]">
         Browse and challenge verified coders by language, ELO tier, and reputation points.
       </p>
     </PageShell>
@@ -186,22 +186,22 @@ export function LeaderboardPage() {
             key={u.rank}
             className={`p-3 rounded-xl flex items-center justify-between text-xs ${
               u.rank === 42
-                ? 'bg-purple-950/40 border border-purple-500/40 text-purple-200'
-                : 'bg-[#070B14] border border-slate-800 text-slate-300'
+                ? 'bg-[#EAF0E7] border border-[#55765B]/40 text-[#0D1321] font-semibold'
+                : 'bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321]'
             }`}
           >
             <div className="flex items-center gap-3">
-              <span className="font-mono font-bold w-6 text-center text-slate-400">#{u.rank}</span>
+              <span className="font-mono font-bold w-6 text-center text-[#3E5C76]">#{u.rank}</span>
               <div>
-                <span className="font-bold text-white mr-2">{u.name}</span>
-                <span className="text-slate-400 font-mono text-[11px]">{u.handle}</span>
+                <span className="font-bold text-[#0D1321] mr-2">{u.name}</span>
+                <span className="text-[#3E5C76] font-mono text-[11px]">{u.handle}</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-[10px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-semibold">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-[#FFFFFF] text-[#1D2D44] border border-[#DDDCCF] font-semibold">
                 {u.tier}
               </span>
-              <span className="font-bold text-amber-400">{u.pts} pts</span>
+              <span className="font-bold text-[#A67C42]">{u.pts} pts</span>
             </div>
           </div>
         ))}
@@ -223,15 +223,15 @@ export function ProfilePage() {
           <img
             src="/default-avatar.png"
             alt="Avatar"
-            className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-500/40"
+            className="w-16 h-16 rounded-2xl object-cover border-2 border-[#DDDCCF]"
           />
           <div>
-            <h2 className="text-lg font-bold text-white">{user?.username || 'Developer'}</h2>
-            <p className="text-xs text-purple-400 font-mono">{user?.email || 'verified contestant'}</p>
+            <h2 className="text-lg font-bold text-[#0D1321]">{user?.username || 'Developer'}</h2>
+            <p className="text-xs text-[#1D2D44] font-mono">{user?.email || 'verified contestant'}</p>
           </div>
         </div>
 
-        <div className="pt-2 text-xs text-slate-300">
+        <div className="pt-2 text-xs text-[#3E5C76]">
           Member since 2026 · Solved 12 challenges · Win rate: 78% in live battles.
         </div>
       </div>
@@ -246,21 +246,21 @@ export function SettingsPage() {
       title="Settings"
       description="Manage account security, notifications, and battle preferences"
     >
-      <div className="space-y-3 text-xs text-slate-300 max-w-lg">
-        <div className="p-3 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+      <div className="space-y-3 text-xs text-[#0D1321] max-w-lg">
+        <div className="p-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
           <div>
-            <div className="font-semibold text-white">Live Battle Invitations</div>
-            <div className="text-[11px] text-slate-400">Receive 1v1 coding battle challenges from online peers</div>
+            <div className="font-bold text-[#0D1321]">Live Battle Invitations</div>
+            <div className="text-[11px] text-[#3E5C76]">Receive 1v1 coding battle challenges from online peers</div>
           </div>
-          <input type="checkbox" defaultChecked className="accent-purple-600 w-4 h-4" />
+          <input type="checkbox" defaultChecked className="accent-[#1D2D44] w-4 h-4" />
         </div>
 
-        <div className="p-3 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
           <div>
-            <div className="font-semibold text-white">Email Digest on Solved Bugs</div>
-            <div className="text-[11px] text-slate-400">Weekly breakdown of points earned and rank shifts</div>
+            <div className="font-bold text-[#0D1321]">Email Digest on Solved Bugs</div>
+            <div className="text-[11px] text-[#3E5C76]">Weekly breakdown of points earned and rank shifts</div>
           </div>
-          <input type="checkbox" defaultChecked className="accent-purple-600 w-4 h-4" />
+          <input type="checkbox" defaultChecked className="accent-[#1D2D44] w-4 h-4" />
         </div>
       </div>
     </PageShell>

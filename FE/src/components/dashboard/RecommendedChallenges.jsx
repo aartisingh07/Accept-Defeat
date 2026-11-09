@@ -32,15 +32,15 @@ export default function RecommendedChallenges() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Star className="w-4 h-4 text-purple-400 fill-purple-400" />
-          <h2 className="text-sm font-bold text-white tracking-wide">
+          <Star className="w-4 h-4 text-[#A67C42] fill-[#A67C42]" />
+          <h2 className="text-sm font-bold text-[#0D1321] tracking-wide">
             Recommended Challenges
           </h2>
         </div>
 
         <button
           onClick={() => navigate('/challenges')}
-          className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors cursor-pointer"
+          className="text-xs font-bold text-[#1D2D44] hover:text-[#0D1321] flex items-center gap-1 transition-colors cursor-pointer"
         >
           <span>View All</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -53,7 +53,7 @@ export default function RecommendedChallenges() {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="h-56 rounded-2xl bg-[#0D1528] border border-slate-800 animate-pulse"
+              className="h-56 rounded-2xl bg-[#F7F5EF] border border-[#DDDCCF] animate-pulse"
             />
           ))}
         </div>
@@ -67,4 +67,3 @@ export default function RecommendedChallenges() {
     </div>
   );
 }
-

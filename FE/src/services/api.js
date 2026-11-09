@@ -6,7 +6,6 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
 });
@@ -24,9 +23,14 @@ api.interceptors.request.use(
       config.headers['x-tab-id'] = tabId;
     }
 
-    // When sending FormData, delete Content-Type so Axios/browser sets multipart/form-data with the correct boundary
-    if (config.data instanceof FormData) {
+    // When sending FormData, delete Content-Type so the browser sets multipart/form-data with the correct boundary
+    if (config.data instanceof FormData || (config.data && typeof config.data.append === 'function')) {
+      if (config.headers?.delete) {
+        config.headers.delete('Content-Type');
+        config.headers.delete('content-type');
+      }
       delete config.headers['Content-Type'];
+      delete config.headers['content-type'];
     }
 
     return config;

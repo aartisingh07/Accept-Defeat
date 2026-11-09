@@ -38,7 +38,7 @@ export const profileService = {
       const response = await api.patch('/users/me/username', { username });
       return response.data;
     } catch (err) {
-      const msg = err.response?.data?.message || 'Failed to update username';
+      const msg = err.response?.data?.message || err.message || 'Failed to update username';
       throw new Error(msg, { cause: err });
     }
   },
@@ -87,12 +87,12 @@ export const profileService = {
 
       const response = await api.post('/users/me/avatar', formData, {
         headers: {
-          'Content-Type': undefined,
+          'Content-Type': 'multipart/form-data',
         },
       });
       return response.data;
     } catch (err) {
-      const msg = err.response?.data?.message || 'Failed to upload profile picture';
+      const msg = err.response?.data?.message || err.message || 'Failed to upload profile picture';
       throw new Error(msg, { cause: err });
     }
   },

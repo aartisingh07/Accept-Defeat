@@ -22,7 +22,7 @@ function FormattedMessage({ text }) {
             {parts.map((part, partIdx) => {
               if (part.startsWith('**') && part.endsWith('**')) {
                 return (
-                  <strong key={partIdx} className="font-bold text-white">
+                  <strong key={partIdx} className="font-bold">
                     {part.slice(2, -2)}
                   </strong>
                 );
@@ -31,7 +31,7 @@ function FormattedMessage({ text }) {
                 return (
                   <code
                     key={partIdx}
-                    className="px-1.5 py-0.5 rounded bg-slate-900 text-purple-300 font-mono text-[11px] border border-purple-500/20"
+                    className="px-1.5 py-0.5 rounded bg-[#FFFFFF] text-[#1D2D44] font-mono text-[11px] border border-[#DDDCCF]"
                   >
                     {part.slice(1, -1)}
                   </code>
@@ -68,22 +68,26 @@ export default function AIMessageList({ messages, isThinking }) {
             <div
               className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 border ${
                 isUser
-                  ? 'bg-purple-600/30 border-purple-500/40 text-purple-200'
-                  : 'bg-[#10182C] border-purple-500/30 text-purple-400 shadow-[0_0_8px_rgba(139,92,246,0.3)]'
+                  ? 'bg-[#1D2D44] border-[#0D1321] text-[#F0EBD8]'
+                  : 'bg-[#F7F5EF] border-[#DDDCCF] text-[#1D2D44] shadow-sm'
               }`}
             >
-              {isUser ? <User className="w-3.5 h-3.5" /> : <Bot className="w-4 h-4 text-purple-300" />}
+              {isUser ? <User className="w-3.5 h-3.5" /> : <Bot className="w-4 h-4 text-[#1D2D44]" />}
             </div>
 
             {/* Bubble */}
             <div
-              className={`max-w-[85%] rounded-2xl p-3 shadow-md ${
+              className={`max-w-[85%] rounded-2xl p-3 shadow-sm ${
                 isUser
-                  ? 'bg-gradient-to-r from-purple-700/50 to-purple-900/40 border border-purple-500/40 text-[#F8FAFC]'
-                  : 'bg-[#0B1222]/95 border border-slate-800 text-slate-200'
+                  ? 'bg-[#1D2D44] border border-[#0D1321] text-[#F0EBD8]'
+                  : 'bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321]'
               }`}
             >
-              <div className="flex items-center justify-between gap-2 mb-1 text-[10px] text-slate-400">
+              <div
+                className={`flex items-center justify-between gap-2 mb-1 text-[10px] ${
+                  isUser ? 'text-[#748CAB]' : 'text-[#3E5C76]'
+                }`}
+              >
                 <span className="font-semibold">{isUser ? 'You' : 'Accept&Defeat AI'}</span>
                 <span>{msg.timestamp || 'Just now'}</span>
               </div>
@@ -97,13 +101,14 @@ export default function AIMessageList({ messages, isThinking }) {
       {/* Typing / Thinking Indicator */}
       {isThinking && (
         <div className="flex items-start gap-2.5">
-          <div className="w-7 h-7 rounded-xl bg-[#10182C] border border-purple-500/30 text-purple-400 flex items-center justify-center shrink-0">
-            <Sparkles className="w-3.5 h-3.5 animate-spin" />
+          <div className="w-7 h-7 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#1D2D44] flex items-center justify-center shrink-0">
+            <Sparkles className="w-3.5 h-3.5 text-[#1D2D44] animate-spin" />
           </div>
-
-          <div className="p-3 rounded-2xl bg-[#0B1222] border border-slate-800 flex items-center gap-1.5 text-xs text-purple-300 shadow-md">
-            <span className="w-2 h-2 rounded-full bg-purple-400 animate-ping" />
-            <span className="text-[11px] font-mono">Formulating battle intelligence...</span>
+          <div className="rounded-2xl px-4 py-2.5 bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#3E5C76] flex items-center gap-1.5 shadow-sm">
+            <span>Thinking</span>
+            <span className="animate-bounce">.</span>
+            <span className="animate-bounce delay-100">.</span>
+            <span className="animate-bounce delay-200">.</span>
           </div>
         </div>
       )}
@@ -112,4 +117,3 @@ export default function AIMessageList({ messages, isThinking }) {
     </div>
   );
 }
-

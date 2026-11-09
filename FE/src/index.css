@@ -1,22 +1,78 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #0D1321;
+  --color-deep-space: #1D2D44;
+  --color-blue-slate: #3E5C76;
+  --color-dusty-denim: #748CAB;
+  --color-eggshell: #F0EBD8;
+
+  --color-light-surface: #F7F5EF;
+  --color-light-border: #DDDCCF;
+  --color-muted-text: #687386;
+  --color-dark-surface: #152237;
+  --color-dark-border: #34465C;
+
+  --color-success: #55765B;
+  --color-warning: #A67C42;
+  --color-error: #B65C50;
+}
+
 @layer base {
   :root {
-    --bg-main: #070B14;
-    --sidebar-bg: #080D1B;
-    --card-bg: #0D1528;
-    --card-elevated: #121D33;
-    --accent-primary: #8B5CF6;
-    --accent-secondary: #A78BFA;
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --success: #34D399;
-    --border-glow: rgba(139, 92, 246, 0.2);
+    /* Centralized Deep Sea Theme Palette */
+    --color-ink: #0D1321;
+    --color-deep-space: #1D2D44;
+    --color-blue-slate: #3E5C76;
+    --color-dusty-denim: #748CAB;
+    --color-eggshell: #F0EBD8;
+
+    --color-background: #F0EBD8;
+    --color-surface: #FFFFFF;
+    --color-surface-secondary: #F7F5EF;
+
+    --color-text-primary: #0D1321;
+    --color-text-secondary: #3E5C76;
+
+    --color-primary: #1D2D44;
+    --color-primary-hover: #0D1321;
+
+    --color-accent: #748CAB;
+    --color-border: #DDDCCF;
+
+    --color-white: #FFFFFF;
+    --color-light-surface: #F7F5EF;
+    --color-light-border: #DDDCCF;
+    --color-muted-text: #687386;
+    --color-dark-surface: #152237;
+    --color-dark-border: #34465C;
+
+    /* Semantic Functional Colors */
+    --color-success: #55765B;
+    --color-success-bg: #EAF0E7;
+    --color-warning: #A67C42;
+    --color-warning-bg: #F5EEDF;
+    --color-error: #B65C50;
+    --color-error-bg: #F7EAE6;
+    --color-info: #3E5C76;
+    --color-info-bg: #EAF0F1;
+    --color-disabled: #B1A99D;
+
+    /* Reusable aliases for backwards compatibility */
+    --bg-main: #F0EBD8;
+    --sidebar-bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-elevated: #F7F5EF;
+    --accent-primary: #1D2D44;
+    --accent-secondary: #3E5C76;
+    --text-primary: #0D1321;
+    --text-secondary: #3E5C76;
+    --border-glow: rgba(116, 140, 171, 0.25);
   }
 
   body {
-    background-color: #070B14;
-    color: #F8FAFC;
+    background-color: #F0EBD8;
+    color: #0D1321;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
@@ -25,87 +81,107 @@
   }
 }
 
-/* Glassmorphism Auth Card */
+/* Deep Sea Content & Auth Cards */
 .glass-panel {
-  background: rgba(16, 24, 39, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 92, 246, 0.25);
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
-              0 0 35px -5px rgba(139, 92, 246, 0.15),
-              inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+  background: #FFFFFF;
+  border: 1px solid #DDDCCF;
+  box-shadow: 0 16px 36px -8px rgba(13, 19, 33, 0.08),
+              0 2px 8px rgba(13, 19, 33, 0.04);
 }
 
+/* Deep Sea Input Styling */
 .glass-input {
-  background: rgba(11, 18, 33, 0.75);
-  border: 1px solid rgba(71, 85, 105, 0.45);
+  background: #FFFFFF;
+  border: 1px solid #DDDCCF;
+  color: #0D1321;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.glass-input::placeholder {
+  color: #687386;
+}
+
 .glass-input:hover {
-  border-color: rgba(139, 92, 246, 0.45);
+  border-color: #748CAB;
 }
 
 .glass-input:focus, .glass-input:focus-within {
-  border-color: rgba(139, 92, 246, 0.9);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.22),
-              0 0 16px rgba(139, 92, 246, 0.18);
+  border-color: #1D2D44;
+  box-shadow: 0 0 0 3px rgba(29, 45, 68, 0.15);
   outline: none;
 }
 
+/* Deep Sea Secondary / Social Buttons */
 .glass-button-social {
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(71, 85, 105, 0.4);
+  background: #FFFFFF;
+  border: 1px solid #DDDCCF;
+  color: #0D1321;
   transition: all 0.2s ease;
 }
 
 .glass-button-social:hover {
-  background: rgba(26, 38, 66, 0.85);
-  border-color: rgba(139, 92, 246, 0.5);
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.12);
+  background: #F7F5EF;
+  border-color: #748CAB;
+  box-shadow: 0 2px 8px rgba(13, 19, 33, 0.06);
 }
 
-/* Purple Glow Primary Button */
-.btn-primary-purple {
-  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #9333EA 100%);
-  box-shadow: 0 4px 20px -2px rgba(139, 92, 246, 0.5),
-              0 0 15px 0 rgba(139, 92, 246, 0.25);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+/* Deep Space Blue Primary Button */
+.btn-primary-deep-space, .btn-primary-purple, .btn-primary-coffee {
+  background-color: #1D2D44;
+  color: #F0EBD8;
+  border: 1px solid #0D1321;
+  box-shadow: 0 4px 14px -2px rgba(29, 45, 68, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-primary-purple:hover:not(:disabled) {
-  box-shadow: 0 6px 28px -1px rgba(139, 92, 246, 0.7),
-              0 0 25px 3px rgba(167, 139, 250, 0.4);
+.btn-primary-deep-space:hover:not(:disabled), .btn-primary-purple:hover:not(:disabled), .btn-primary-coffee:hover:not(:disabled) {
+  background-color: #0D1321;
+  box-shadow: 0 6px 18px -1px rgba(13, 19, 33, 0.35);
   transform: translateY(-1px);
 }
 
-.btn-primary-purple:active:not(:disabled) {
+.btn-primary-deep-space:active:not(:disabled), .btn-primary-purple:active:not(:disabled), .btn-primary-coffee:active:not(:disabled) {
   transform: translateY(1px);
-  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 2px 6px rgba(13, 19, 33, 0.2);
+}
+
+/* Secondary Button */
+.btn-secondary-deep-sea, .btn-secondary-warm {
+  background-color: #FFFFFF;
+  color: #1D2D44;
+  border: 1px solid #DDDCCF;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-deep-sea:hover:not(:disabled), .btn-secondary-warm:hover:not(:disabled) {
+  background-color: #F7F5EF;
+  border-color: #3E5C76;
 }
 
 /* Dashboard Specific Styles */
 .dashboard-card {
-  background-color: #0D1528;
-  border: 1px solid rgba(139, 92, 246, 0.18);
+  background-color: #FFFFFF;
+  border: 1px solid #DDDCCF;
+  box-shadow: 0 2px 8px rgba(13, 19, 33, 0.04);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .dashboard-card:hover {
-  border-color: rgba(139, 92, 246, 0.32);
+  border-color: #748CAB;
+  box-shadow: 0 6px 16px rgba(13, 19, 33, 0.08);
 }
 
 .dashboard-card-elevated {
-  background-color: #121D33;
-  border: 1px solid rgba(139, 92, 246, 0.24);
+  background-color: #F7F5EF;
+  border: 1px solid #DDDCCF;
 }
 
-/* Background Grid Pattern */
+/* Subtle Deep Sea Grid Pattern */
 .bg-grid-pattern {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(13, 19, 33, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 19, 33, 0.04) 1px, transparent 1px);
 }
 
 /* Custom Scrollbar */
@@ -115,14 +191,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(11, 17, 32, 0.6);
+  background: #F7F5EF;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.35);
+  background: #DDDCCF;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.6);
+  background: #748CAB;
 }

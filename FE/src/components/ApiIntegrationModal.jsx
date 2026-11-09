@@ -50,73 +50,73 @@ export default function ApiIntegrationModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ duration: 0.22 }}
-            className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-3xl bg-[#101827] border border-purple-500/30 shadow-[0_30px_70px_rgba(0,0,0,0.85),0_0_35px_rgba(139,92,246,0.2)] overflow-hidden text-left"
+            className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-3xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-2xl overflow-hidden text-left text-[#0D1321]"
           >
             {/* Header */}
-            <div className="p-5 sm:p-6 bg-[#0E1524] border-b border-slate-800 flex items-center justify-between shrink-0">
+            <div className="p-5 sm:p-6 bg-[#F7F5EF] border-b border-[#DDDCCF] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-400">
-                  <Server className="w-5 h-5 text-purple-300" />
+                <div className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#DDDCCF] text-[#1D2D44]">
+                  <Server className="w-5 h-5 text-[#1D2D44]" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <h3 className="text-base font-bold text-[#0D1321] flex items-center gap-2">
                     Backend Architecture &amp; Integration Specs
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EAF0E7] text-[#55765B] border border-[#55765B]/30 font-semibold">
                       Node + Express + MongoDB
                     </span>
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-[#3E5C76]">
                     Defined contracts for connecting your REST or GraphQL backend
                   </p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                className="p-1.5 rounded-xl text-[#687386] hover:text-[#0D1321] hover:bg-[#FFFFFF] transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Content */}
-            <div className="p-6 overflow-y-auto space-y-5 text-xs text-slate-300">
-              <div className="p-3.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-purple-200 leading-relaxed">
-                <p className="font-semibold text-purple-300 mb-1 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4" /> Architectural Boundary
+            <div className="p-6 overflow-y-auto space-y-5 text-xs text-[#0D1321]">
+              <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] leading-relaxed">
+                <p className="font-bold text-[#1D2D44] mb-1 flex items-center gap-1.5">
+                  <Layers className="w-4 h-4 text-[#3E5C76]" /> Architectural Boundary
                 </p>
-                The frontend code strictly isolates API operations in <code className="text-purple-300 font-mono">src/services/authService.js</code>. All form submissions emit real HTTP requests to <code className="text-purple-300 font-mono">VITE_API_URL</code> (defaults to <code className="text-purple-300 font-mono">http://localhost:5000/api</code>).
+                The frontend code isolates API operations in <code className="text-[#1D2D44] font-bold font-mono">src/services/authService.js</code>. All form submissions emit real HTTP requests to <code className="text-[#1D2D44] font-bold font-mono">VITE_API_URL</code> (defaults to <code className="text-[#1D2D44] font-bold font-mono">http://localhost:5000/api</code>).
               </div>
 
               <div className="space-y-4">
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-purple-400" />
+                <h4 className="text-xs font-bold text-[#0D1321] uppercase tracking-wider flex items-center gap-2">
+                  <Terminal className="w-3.5 h-3.5 text-[#1D2D44]" />
                   REST API Endpoints Specification
                 </h4>
 
                 {endpoints.map((ep, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl bg-[#090D1A] border border-slate-800 space-y-2">
+                  <div key={idx} className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className={`px-2 py-0.5 rounded font-mono font-bold text-[10px] ${
-                          ep.method === 'POST' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                          ep.method === 'POST' ? 'bg-[#1D2D44] text-[#F0EBD8]' : 'bg-[#3E5C76] text-[#F0EBD8]'
                         }`}>
                           {ep.method}
                         </span>
-                        <code className="text-xs text-white font-mono font-semibold">{ep.path}</code>
+                        <code className="text-xs text-[#0D1321] font-mono font-bold">{ep.path}</code>
                       </div>
                       <button
                         onClick={() => handleCopy(ep.body, idx)}
-                        className="text-slate-400 hover:text-purple-300 transition-colors p-1"
+                        className="text-[#687386] hover:text-[#1D2D44] transition-colors p-1 cursor-pointer"
                         title="Copy body payload"
                       >
                         {copiedIndex === idx ? (
-                          <span className="flex items-center gap-1 text-[10px] text-emerald-400">
+                          <span className="flex items-center gap-1 text-[10px] text-[#55765B] font-semibold">
                             <Check className="w-3 h-3" /> Copied
                           </span>
                         ) : (
@@ -125,9 +125,9 @@ export default function ApiIntegrationModal({ isOpen, onClose }) {
                       </button>
                     </div>
 
-                    <p className="text-[11px] text-slate-400 leading-normal">{ep.desc}</p>
+                    <p className="text-[11px] text-[#3E5C76] leading-normal">{ep.desc}</p>
 
-                    <div className="rounded-lg bg-[#060810] p-2.5 font-mono text-[11px] text-slate-300 overflow-x-auto border border-slate-800/80">
+                    <div className="rounded-lg bg-[#FFFFFF] p-2.5 font-mono text-[11px] text-[#0D1321] overflow-x-auto border border-[#DDDCCF]">
                       <pre>{ep.body}</pre>
                     </div>
                   </div>
@@ -136,13 +136,13 @@ export default function ApiIntegrationModal({ isOpen, onClose }) {
             </div>
 
             {/* Footer */}
-            <div className="p-4 bg-[#0A0F1D] border-t border-slate-800 flex items-center justify-between">
-              <span className="text-[11px] text-slate-400">
+            <div className="p-4 bg-[#F7F5EF] border-t border-[#DDDCCF] flex items-center justify-between">
+              <span className="text-[11px] text-[#3E5C76]">
                 Ready for Node.js / Express / Mongoose deployment
               </span>
               <button
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-purple-600 hover:bg-purple-500 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-[#F0EBD8] bg-[#1D2D44] hover:bg-[#0D1321] transition-colors cursor-pointer"
               >
                 Close Specs
               </button>

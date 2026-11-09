@@ -31,7 +31,7 @@ export default function StatsGrid() {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="h-24 rounded-2xl bg-[#0D1528] border border-slate-800 animate-pulse"
+            className="h-24 rounded-2xl bg-[#F7F5EF] border border-[#DDDCCF] animate-pulse"
           />
         ))}
       </div>
@@ -46,7 +46,7 @@ export default function StatsGrid() {
           label="Total Points"
           value={stats?.totalPoints?.toLocaleString() || '1,250'}
           trend={stats?.pointsTrend || '+120'}
-          iconColor="purple"
+          iconColor="deepSpace"
         />
 
         <StatCard
@@ -54,7 +54,7 @@ export default function StatsGrid() {
           label="Challenges Solved"
           value={stats?.challengesSolved || 12}
           trend={stats?.solvedTrend || '+3'}
-          iconColor="cyan"
+          iconColor="green"
         />
 
         <StatCard
@@ -62,7 +62,7 @@ export default function StatsGrid() {
           label="Ongoing Challenges"
           value={stats?.ongoingChallenges || 8}
           trend={null}
-          iconColor="violet"
+          iconColor="blueSlate"
         />
 
         <StatCard
@@ -70,16 +70,15 @@ export default function StatsGrid() {
           label="Global Rank"
           value={stats?.globalRank || '#42'}
           trend={stats?.rankTrend || '+8'}
-          iconColor="blue"
+          iconColor="amber"
         />
       </div>
 
       {stats?.isSampleData && (
-        <div className="text-right text-[10px] text-slate-500 font-mono pr-1">
+        <div className="text-right text-[10px] text-[#3E5C76] font-mono pr-1">
           * Displaying development sample metrics until stats API is connected
         </div>
       )}
     </div>
   );
 }
-

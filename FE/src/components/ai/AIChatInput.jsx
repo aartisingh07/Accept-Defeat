@@ -32,15 +32,15 @@ export default function AIChatInput({ onSendMessage, isThinking, error, onRetry 
   };
 
   return (
-    <div className="p-3 bg-[#090F1E] border-t border-purple-500/20 shrink-0 rounded-b-3xl space-y-2">
+    <div className="p-3 bg-[#F7F5EF] border-t border-[#DDDCCF] shrink-0 rounded-b-3xl space-y-2 text-[#0D1321]">
       {/* Error notification banner with retry option */}
       {error && (
-        <div className="p-2 rounded-xl bg-rose-950/40 border border-rose-500/30 text-[11px] text-rose-300 flex items-center justify-between gap-2">
+        <div className="p-2 rounded-xl bg-[#F7EAE6] border border-[#B65C50]/30 text-[11px] text-[#B65C50] flex items-center justify-between gap-2">
           <span>{error}</span>
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-2 py-0.5 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 font-semibold flex items-center gap-1 cursor-pointer shrink-0"
+              className="px-2 py-0.5 rounded bg-[#B65C50]/20 hover:bg-[#B65C50]/30 text-[#B65C50] font-semibold flex items-center gap-1 cursor-pointer shrink-0"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Retry</span>
@@ -60,14 +60,14 @@ export default function AIChatInput({ onSendMessage, isThinking, error, onRetry 
             onKeyDown={handleKeyDown}
             disabled={isThinking}
             placeholder="Ask AI battle companion... (Enter to send, Shift+Enter for new line)"
-            className="w-full py-2.5 pl-3 pr-3 rounded-2xl bg-[#0D1528] border border-slate-700/70 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 transition-all resize-none max-h-32 disabled:opacity-50"
+            className="w-full py-2.5 pl-3 pr-3 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] text-xs text-[#0D1321] placeholder-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] focus:ring-1 focus:ring-[#1D2D44]/30 transition-all resize-none max-h-32 disabled:opacity-50"
           />
         </div>
 
         <button
           type="submit"
           disabled={!text.trim() || isThinking}
-          className="btn-primary-purple p-2.5 rounded-xl text-white cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0 shadow-md select-none"
+          className="bg-[#1D2D44] hover:bg-[#0D1321] p-2.5 rounded-xl text-[#F0EBD8] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0 shadow-sm select-none transition-colors"
           aria-label="Send message"
         >
           {isThinking ? (
@@ -78,11 +78,10 @@ export default function AIChatInput({ onSendMessage, isThinking, error, onRetry 
         </button>
       </form>
 
-      <div className="text-[10px] text-slate-500 text-left flex items-center justify-between px-1">
-        <span>Press <strong className="font-mono text-purple-400">Enter ↵</strong> to send</span>
+      <div className="text-[10px] text-[#3E5C76] text-left flex items-center justify-between px-1">
+        <span>Press <strong className="font-mono text-[#1D2D44]">Enter ↵</strong> to send</span>
         <span>Accept&amp;Defeat Assistant</span>
       </div>
     </div>
   );
 }
-

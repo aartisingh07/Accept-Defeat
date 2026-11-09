@@ -52,17 +52,17 @@ export default function AuthPanel({
 
   return (
     <div className="w-full max-w-md mx-auto">
-      {/* Outer Card with Glassmorphism, Rounded Borders, Ambient Shadow */}
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden backdrop-blur-2xl">
-        {/* Subtle Ambient Accent inside card */}
-        <div className="absolute top-0 right-0 w-44 h-44 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-36 h-36 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Outer Card with White Background, Neutral Border, Elegant Shadow */}
+      <div className="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+        {/* Subtle Deep Sea Ambient Accent inside card */}
+        <div className="absolute top-0 right-0 w-44 h-44 bg-[#748CAB]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-36 h-36 bg-[#1D2D44]/5 rounded-full blur-3xl pointer-events-none" />
 
         {/* Sliding Tab Switcher */}
-        <div className="relative mb-6 p-1 rounded-2xl bg-[#0B1120]/90 border border-purple-500/20 flex items-center shadow-inner">
-          {/* Animated Pill Indicator */}
+        <div className="relative mb-6 p-1 rounded-2xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center shadow-inner">
+          {/* Animated Deep Space Blue Pill Indicator */}
           <motion.div
-            className="absolute top-1 bottom-1 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] shadow-[0_2px_12px_rgba(139,92,246,0.5)]"
+            className="absolute top-1 bottom-1 rounded-xl bg-[#1D2D44] shadow-sm"
             initial={false}
             animate={{
               left: activeTab === 'login' ? '4px' : '50%',
@@ -80,7 +80,7 @@ export default function AuthPanel({
             type="button"
             onClick={() => handleTabClick('login')}
             className={`relative z-10 w-1/2 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-colors duration-200 cursor-pointer select-none ${
-              activeTab === 'login' ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'login' ? 'text-[#F0EBD8]' : 'text-[#3E5C76] hover:text-[#0D1321]'
             }`}
             aria-selected={activeTab === 'login'}
             role="tab"
@@ -93,7 +93,7 @@ export default function AuthPanel({
             type="button"
             onClick={() => handleTabClick('signup')}
             className={`relative z-10 w-1/2 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-colors duration-200 cursor-pointer select-none ${
-              activeTab === 'signup' ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'signup' ? 'text-[#F0EBD8]' : 'text-[#3E5C76] hover:text-[#0D1321]'
             }`}
             aria-selected={activeTab === 'signup'}
             role="tab"

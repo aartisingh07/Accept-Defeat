@@ -19,15 +19,15 @@ export default function PasswordInput({
   return (
     <div className="w-full text-left space-y-1.5">
       <div className="flex items-center justify-between">
-        <label htmlFor={id} className="block text-xs font-medium text-slate-300">
-          {label} {required && <span className="text-purple-400">*</span>}
+        <label htmlFor={id} className="block text-xs font-medium text-[#0D1321]">
+          {label} {required && <span className="text-[#B65C50]">*</span>}
         </label>
         {rightLabel}
       </div>
 
       <div className="relative">
         {/* Left Lock Icon */}
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#3E5C76]">
           <Lock className="w-4 h-4" />
         </div>
 
@@ -42,9 +42,9 @@ export default function PasswordInput({
           disabled={disabled}
           autoComplete={autoComplete}
           required={required}
-          className={`glass-input w-full h-11 pl-10 pr-11 rounded-xl text-sm text-[#F8FAFC] placeholder-slate-500 transition-all ${
+          className={`glass-input w-full h-11 pl-10 pr-11 rounded-xl text-sm text-[#0D1321] placeholder-[#687386] transition-all ${
             error
-              ? 'border-red-500/80 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+              ? 'border-[#B65C50] focus:border-[#B65C50] focus:ring-2 focus:ring-[#B65C50]/20'
               : ''
           } disabled:opacity-50 disabled:cursor-not-allowed`}
         />
@@ -55,7 +55,7 @@ export default function PasswordInput({
           onClick={() => setShowPassword(!showPassword)}
           disabled={disabled}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
-          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-purple-300 transition-colors cursor-pointer focus:outline-none"
+          className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#3E5C76] hover:text-[#0D1321] transition-colors cursor-pointer focus:outline-none"
         >
           {showPassword ? (
             <EyeOff className="w-4 h-4 transition-transform active:scale-90" />
@@ -67,7 +67,7 @@ export default function PasswordInput({
 
       {/* Error Message */}
       {error && (
-        <p className="flex items-center gap-1.5 text-xs text-red-400 mt-1 animate-fadeIn">
+        <p className="flex items-center gap-1.5 text-xs text-[#B65C50] mt-1 animate-fadeIn">
           <AlertCircle className="w-3.5 h-3.5 shrink-0" />
           <span>{error}</span>
         </p>

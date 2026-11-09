@@ -36,27 +36,27 @@ export default function Topbar({ onMenuClick }) {
       : '/default-avatar.png';
 
   return (
-    <header className="h-16 px-4 sm:px-6 lg:px-8 bg-[#080D1B]/80 backdrop-blur-md border-b border-purple-500/15 flex items-center justify-between sticky top-0 z-30">
+    <header className="h-16 px-4 sm:px-6 lg:px-8 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#DDDCCF] flex items-center justify-between sticky top-0 z-30">
       {/* Left Search Bar & Mobile Hamburger */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <button
           onClick={onMenuClick}
-          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 lg:hidden cursor-pointer"
+          className="p-2 rounded-xl text-[#3E5C76] hover:text-[#0D1321] hover:bg-[#F7F5EF] lg:hidden cursor-pointer"
           aria-label="Open navigation menu"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         <div className="relative w-full">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#3E5C76] pointer-events-none" />
           <input
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search challenges, users, skills..."
-            className="w-full h-10 pl-10 pr-12 rounded-xl bg-[#0D1528] border border-slate-700/60 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 transition-all"
+            className="w-full h-10 pl-10 pr-12 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs sm:text-sm text-[#0D1321] placeholder-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] focus:ring-1 focus:ring-[#1D2D44]/30 transition-all"
           />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-mono text-slate-400 border border-slate-700">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-[#FFFFFF] text-[10px] font-mono text-[#3E5C76] border border-[#DDDCCF]">
             <span>⌘</span>
             <span>K</span>
           </div>
@@ -68,7 +68,7 @@ export default function Topbar({ onMenuClick }) {
         {/* Create Challenge Button */}
         <button
           onClick={() => navigate('/challenges/create')}
-          className="btn-primary-purple hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white cursor-pointer select-none"
+          className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer select-none shadow-sm hover:shadow transition-colors"
         >
           <Plus className="w-4 h-4" />
           <span>Create Challenge</span>
@@ -76,12 +76,12 @@ export default function Topbar({ onMenuClick }) {
 
         {/* Notifications Icon with Unread Badge */}
         <button
-          className="relative p-2 rounded-xl bg-[#0D1528] border border-slate-700/60 text-slate-300 hover:text-white hover:border-purple-500/40 transition-colors cursor-pointer"
+          className="relative p-2 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] hover:bg-[#FFFFFF] hover:border-[#748CAB] transition-colors cursor-pointer"
           aria-label="View notifications"
           onClick={() => alert('Notifications: 1 new battle invitation from @karan_dev')}
         >
           <Bell className="w-4 h-4" />
-          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-[#080D1B]">
+          <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#B65C50] text-[#FFFFFF] text-[9px] font-bold flex items-center justify-center border-2 border-[#FFFFFF]">
             1
           </span>
         </button>
@@ -90,23 +90,23 @@ export default function Topbar({ onMenuClick }) {
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2.5 p-1 pr-3 rounded-full hover:bg-slate-800/50 transition-colors cursor-pointer border border-transparent hover:border-purple-500/20"
+            className="flex items-center gap-2.5 p-1 pr-3 rounded-full hover:bg-[#F7F5EF] transition-colors cursor-pointer border border-transparent hover:border-[#DDDCCF]"
             aria-expanded={dropdownOpen}
           >
             <div className="relative">
               <img
                 src={avatarUrl}
                 alt={displayName}
-                className="w-8 h-8 rounded-full object-cover border border-purple-500/40"
+                className="w-8 h-8 rounded-full object-cover border border-[#DDDCCF]"
               />
-              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[#080D1B]" />
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#55765B] border-2 border-[#FFFFFF]" />
             </div>
 
             <div className="hidden md:flex flex-col text-left">
-              <span className="text-xs font-semibold text-white leading-tight">
+              <span className="text-xs font-bold text-[#0D1321] leading-tight">
                 {displayName}
               </span>
-              <span className="text-[10px] text-slate-400 leading-tight">
+              <span className="text-[10px] text-[#3E5C76] leading-tight font-mono">
                 {handleTag}
               </span>
             </div>
@@ -114,10 +114,10 @@ export default function Topbar({ onMenuClick }) {
 
           {/* Profile Dropdown Menu */}
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-52 py-1.5 rounded-2xl bg-[#0D1528] border border-purple-500/30 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(139,92,246,0.15)] z-50 text-xs">
-              <div className="px-3.5 py-2 border-b border-slate-800">
-                <div className="font-semibold text-white">{displayName}</div>
-                <div className="text-[11px] text-purple-400 font-mono">{user?.email || handleTag}</div>
+            <div className="absolute right-0 mt-2 w-52 py-1.5 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-xl z-50 text-xs">
+              <div className="px-3.5 py-2 border-b border-[#DDDCCF]">
+                <div className="font-bold text-[#0D1321]">{displayName}</div>
+                <div className="text-[11px] text-[#1D2D44] font-mono">{user?.email || handleTag}</div>
               </div>
 
               <button
@@ -125,9 +125,9 @@ export default function Topbar({ onMenuClick }) {
                   setDropdownOpen(false);
                   navigate('/profile');
                 }}
-                className="w-full px-3.5 py-2 text-left text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2.5 cursor-pointer"
+                className="w-full px-3.5 py-2 text-left text-[#0D1321] hover:bg-[#F7F5EF] flex items-center gap-2.5 cursor-pointer font-medium"
               >
-                <User className="w-3.5 h-3.5 text-purple-400" />
+                <User className="w-3.5 h-3.5 text-[#1D2D44]" />
                 <span>My Profile</span>
               </button>
 
@@ -136,17 +136,17 @@ export default function Topbar({ onMenuClick }) {
                   setDropdownOpen(false);
                   navigate('/settings');
                 }}
-                className="w-full px-3.5 py-2 text-left text-slate-300 hover:text-white hover:bg-slate-800/60 flex items-center gap-2.5 cursor-pointer"
+                className="w-full px-3.5 py-2 text-left text-[#0D1321] hover:bg-[#F7F5EF] flex items-center gap-2.5 cursor-pointer font-medium"
               >
-                <Settings className="w-3.5 h-3.5 text-purple-400" />
+                <Settings className="w-3.5 h-3.5 text-[#1D2D44]" />
                 <span>Settings</span>
               </button>
 
-              <div className="my-1 border-t border-slate-800" />
+              <div className="my-1 border-t border-[#DDDCCF]" />
 
               <button
                 onClick={handleLogout}
-                className="w-full px-3.5 py-2 text-left text-rose-400 hover:text-rose-300 hover:bg-rose-950/20 flex items-center gap-2.5 cursor-pointer"
+                className="w-full px-3.5 py-2 text-left text-[#B65C50] hover:bg-[#F7EAE6] flex items-center gap-2.5 cursor-pointer font-semibold"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Logout</span>

@@ -17,9 +17,9 @@ export default function SignupForm({ onSwitchTab }) {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  // Password Strength Calculation
+  // Password Strength Calculation (using Deep Sea & supporting semantic colors)
   const getPasswordStrength = (pass) => {
-    if (!pass) return { score: 0, label: '', color: 'bg-slate-700' };
+    if (!pass) return { score: 0, label: '', color: 'bg-[#DDDCCF]' };
     let score = 0;
     if (pass.length >= 8) score += 1;
     if (/[A-Z]/.test(pass) && /[a-z]/.test(pass)) score += 1;
@@ -28,15 +28,15 @@ export default function SignupForm({ onSwitchTab }) {
 
     switch (score) {
       case 1:
-        return { score: 25, label: 'Weak', color: 'bg-rose-500', text: 'text-rose-400' };
+        return { score: 25, label: 'Weak', color: 'bg-[#B65C50]', text: 'text-[#B65C50]' };
       case 2:
-        return { score: 50, label: 'Fair', color: 'bg-amber-500', text: 'text-amber-400' };
+        return { score: 50, label: 'Fair', color: 'bg-[#A67C42]', text: 'text-[#A67C42]' };
       case 3:
-        return { score: 75, label: 'Good', color: 'bg-blue-500', text: 'text-blue-400' };
+        return { score: 75, label: 'Good', color: 'bg-[#748CAB]', text: 'text-[#748CAB]' };
       case 4:
-        return { score: 100, label: 'Strong', color: 'bg-emerald-500', text: 'text-emerald-400' };
+        return { score: 100, label: 'Strong', color: 'bg-[#55765B]', text: 'text-[#55765B]' };
       default:
-        return { score: 10, label: 'Too short', color: 'bg-rose-500', text: 'text-rose-400' };
+        return { score: 10, label: 'Too short', color: 'bg-[#B65C50]', text: 'text-[#B65C50]' };
     }
   };
 
@@ -95,11 +95,11 @@ export default function SignupForm({ onSwitchTab }) {
     <div className="w-full flex flex-col justify-center">
       {/* Header */}
       <div className="text-center mb-4">
-        <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center justify-center gap-2">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#0D1321] tracking-tight flex items-center justify-center gap-2">
           <span>Create Account</span>
           <span className="inline-block animate-pulse">🚀</span>
         </h2>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-[#3E5C76] mt-1">
           Join Accept&amp;Defeat and start your journey
         </p>
       </div>
@@ -110,29 +110,29 @@ export default function SignupForm({ onSwitchTab }) {
       {/* OR Divider */}
       <div className="relative my-3 flex items-center justify-center">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-slate-700/60" />
+          <div className="w-full border-t border-[#DDDCCF]" />
         </div>
-        <span className="relative px-3 bg-[#101827] text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <span className="relative px-3 bg-[#FFFFFF] text-[11px] font-semibold text-[#687386] uppercase tracking-wider">
           OR
         </span>
       </div>
 
       {/* Server Feedback Notices */}
       {serverError && (
-        <div className="mb-3.5 p-3 rounded-xl bg-red-950/40 border border-red-500/30 text-xs text-red-200 flex items-start gap-2.5">
-          <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+        <div className="mb-3.5 p-3 rounded-xl bg-[#F7EAE6] border border-[#B65C50]/30 text-xs text-[#B65C50] flex items-start gap-2.5">
+          <AlertCircle className="w-4 h-4 text-[#B65C50] shrink-0 mt-0.5" />
           <div className="flex-1">
-            <span className="font-semibold block text-red-300">Registration Notice</span>
+            <span className="font-semibold block text-[#B65C50]">Registration Notice</span>
             <span>{serverError}</span>
           </div>
         </div>
       )}
 
       {serverSuccess && (
-        <div className="mb-3.5 p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs text-emerald-200 flex items-start gap-2.5">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+        <div className="mb-3.5 p-3 rounded-xl bg-[#EAF0E7] border border-[#55765B]/30 text-xs text-[#55765B] flex items-start gap-2.5">
+          <CheckCircle2 className="w-4 h-4 text-[#55765B] shrink-0 mt-0.5" />
           <div className="flex-1">
-            <span className="font-semibold block text-emerald-300">Profile Activated</span>
+            <span className="font-semibold block text-[#55765B]">Profile Activated</span>
             <span>{serverSuccess}</span>
           </div>
         </div>
@@ -142,11 +142,11 @@ export default function SignupForm({ onSwitchTab }) {
       <form onSubmit={handleSubmit} className="space-y-3" noValidate>
         {/* Username */}
         <div className="w-full text-left space-y-1">
-          <label htmlFor="signup-username" className="block text-xs font-medium text-slate-300">
-            Username <span className="text-purple-400">*</span>
+          <label htmlFor="signup-username" className="block text-xs font-medium text-[#0D1321]">
+            Username <span className="text-[#B65C50]">*</span>
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#3E5C76]">
               <User className="w-4 h-4" />
             </div>
             <input
@@ -161,20 +161,20 @@ export default function SignupForm({ onSwitchTab }) {
               placeholder="Choose a username"
               disabled={isLoading}
               autoComplete="username"
-              className={`glass-input w-full h-10 pl-10 pr-9 rounded-xl text-sm text-[#F8FAFC] placeholder-slate-500 transition-all ${
+              className={`glass-input w-full h-10 pl-10 pr-9 rounded-xl text-sm text-[#0D1321] placeholder-[#687386] transition-all ${
                 errors.username
-                  ? 'border-red-500/80 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                  ? 'border-[#B65C50] focus:border-[#B65C50] focus:ring-2 focus:ring-[#B65C50]/20'
                   : ''
               }`}
             />
             {username.length >= 3 && /^[a-zA-Z0-9_]+$/.test(username) && !errors.username && (
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-emerald-400 pointer-events-none">
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#55765B] pointer-events-none">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
             )}
           </div>
           {errors.username && (
-            <p className="flex items-center gap-1.5 text-xs text-red-400 mt-1">
+            <p className="flex items-center gap-1.5 text-xs text-[#B65C50] mt-1">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               <span>{errors.username}</span>
             </p>
@@ -183,11 +183,11 @@ export default function SignupForm({ onSwitchTab }) {
 
         {/* Email */}
         <div className="w-full text-left space-y-1">
-          <label htmlFor="signup-email" className="block text-xs font-medium text-slate-300">
-            Email <span className="text-purple-400">*</span>
+          <label htmlFor="signup-email" className="block text-xs font-medium text-[#0D1321]">
+            Email <span className="text-[#B65C50]">*</span>
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#3E5C76]">
               <Mail className="w-4 h-4" />
             </div>
             <input
@@ -202,15 +202,15 @@ export default function SignupForm({ onSwitchTab }) {
               placeholder="Enter your email"
               disabled={isLoading}
               autoComplete="email"
-              className={`glass-input w-full h-10 pl-10 pr-4 rounded-xl text-sm text-[#F8FAFC] placeholder-slate-500 transition-all ${
+              className={`glass-input w-full h-10 pl-10 pr-4 rounded-xl text-sm text-[#0D1321] placeholder-[#687386] transition-all ${
                 errors.email
-                  ? 'border-red-500/80 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                  ? 'border-[#B65C50] focus:border-[#B65C50] focus:ring-2 focus:ring-[#B65C50]/20'
                   : ''
               }`}
             />
           </div>
           {errors.email && (
-            <p className="flex items-center gap-1.5 text-xs text-red-400 mt-1">
+            <p className="flex items-center gap-1.5 text-xs text-[#B65C50] mt-1">
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
               <span>{errors.email}</span>
             </p>
@@ -239,25 +239,25 @@ export default function SignupForm({ onSwitchTab }) {
           {password && (
             <div className="mt-2 space-y-1 text-left">
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-slate-400">Strength:</span>
+                <span className="text-[#687386]">Strength:</span>
                 <span className={`font-semibold ${passwordStrength.text}`}>
                   {passwordStrength.label}
                 </span>
               </div>
-              <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-[#F7F5EF] rounded-full overflow-hidden border border-[#DDDCCF]/60">
                 <div
                   className={`h-full ${passwordStrength.color} transition-all duration-300`}
                   style={{ width: `${passwordStrength.score}%` }}
                 />
               </div>
-              <div className="flex items-center gap-2 text-[10px] text-slate-400 pt-0.5">
-                <span className={password.length >= 6 ? 'text-emerald-400' : 'text-slate-500'}>
+              <div className="flex items-center gap-2 text-[10px] text-[#687386] pt-0.5">
+                <span className={password.length >= 6 ? 'text-[#55765B]' : 'text-[#687386]'}>
                   • 6+ chars
                 </span>
-                <span className={/[0-9]/.test(password) ? 'text-emerald-400' : 'text-slate-500'}>
+                <span className={/[0-9]/.test(password) ? 'text-[#55765B]' : 'text-[#687386]'}>
                   • 1 number
                 </span>
-                <span className={/[^A-Za-z0-9]/.test(password) ? 'text-emerald-400' : 'text-slate-500'}>
+                <span className={/[^A-Za-z0-9]/.test(password) ? 'text-[#55765B]' : 'text-[#687386]'}>
                   • 1 symbol
                 </span>
               </div>
@@ -270,7 +270,7 @@ export default function SignupForm({ onSwitchTab }) {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary-purple w-full h-11 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none"
+            className="btn-primary-deep-space w-full h-11 rounded-xl text-sm font-semibold text-[#F0EBD8] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none shadow-sm hover:shadow"
           >
             {isLoading ? (
               <>
@@ -288,12 +288,12 @@ export default function SignupForm({ onSwitchTab }) {
       </form>
 
       {/* Footer Switcher */}
-      <div className="mt-4 text-center text-xs text-slate-400">
+      <div className="mt-4 text-center text-xs text-[#3E5C76]">
         <span>Already have an account? </span>
         <button
           type="button"
           onClick={onSwitchTab}
-          className="text-purple-400 font-semibold hover:text-purple-300 transition-colors ml-1 cursor-pointer focus:outline-none focus:underline"
+          className="text-[#1D2D44] font-bold hover:text-[#0D1321] transition-colors ml-1 cursor-pointer focus:outline-none focus:underline"
         >
           Login
         </button>

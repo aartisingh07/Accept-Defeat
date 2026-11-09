@@ -105,7 +105,7 @@ export default function FloatingAIChat() {
                 : { opacity: 0, y: 25, scale: 0.96 }
             }
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[410px] max-w-[calc(100vw-24px)] h-[620px] max-h-[calc(100dvh-120px)] flex flex-col rounded-3xl bg-[#0D1528]/95 backdrop-blur-2xl border border-purple-500/30 shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(139,92,246,0.2)] overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[410px] max-w-[calc(100vw-24px)] h-[620px] max-h-[calc(100dvh-120px)] flex flex-col rounded-3xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-2xl overflow-hidden text-[#0D1321]"
             role="dialog"
             aria-label="Accept&Defeat AI Assistant Chat"
           >
@@ -146,10 +146,10 @@ export default function FloatingAIChat() {
           onClick={() => setIsOpen(!isOpen)}
           whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
           whileTap={shouldReduceMotion ? {} : { scale: 0.94 }}
-          className={`relative w-14 h-14 sm:w-15 sm:h-15 rounded-full flex items-center justify-center cursor-pointer select-none transition-all duration-300 shadow-[0_4px_25px_rgba(139,92,246,0.55)] border-2 ${
+          className={`relative w-14 h-14 sm:w-15 sm:h-15 rounded-full flex items-center justify-center cursor-pointer select-none transition-all duration-300 shadow-xl border-2 ${
             isOpen
-              ? 'bg-[#10182C] border-purple-400 text-purple-300 shadow-[0_0_30px_rgba(139,92,246,0.7)]'
-              : 'bg-gradient-to-tr from-[#7C3AED] via-[#8B5CF6] to-[#A855F7] border-purple-300/40 text-white hover:shadow-[0_0_35px_rgba(139,92,246,0.8)]'
+              ? 'bg-[#0D1321] border-[#DDDCCF] text-[#F0EBD8]'
+              : 'bg-[#1D2D44] hover:bg-[#0D1321] border-[#DDDCCF] text-[#F0EBD8]'
           }`}
           aria-label={isOpen ? 'Close AI Assistant' : 'Open AI Assistant'}
           title="Ask Accept&Defeat AI"
@@ -159,16 +159,16 @@ export default function FloatingAIChat() {
           ) : (
             <>
               <Bot className="w-6 h-6 transition-transform group-hover:scale-110" />
-              <Sparkles className="w-3.5 h-3.5 absolute -top-1 -right-1 text-cyan-300 animate-pulse" />
+              <Sparkles className="w-3.5 h-3.5 absolute -top-1 -right-1 text-[#748CAB] animate-pulse" />
               {/* Online pulse dot */}
-              <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#070B14]" />
+              <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-[#55765B] border-2 border-[#FFFFFF]" />
             </>
           )}
         </motion.button>
 
         {/* Hover Tooltip (Hidden when open) */}
         {!isOpen && (
-          <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 rounded-xl bg-[#0D1528] border border-purple-500/30 text-xs font-semibold text-purple-200 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap">
+          <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#DDDCCF] text-xs font-bold text-[#0D1321] shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap">
             Ask Accept&amp;Defeat AI
           </div>
         )}
@@ -176,4 +176,3 @@ export default function FloatingAIChat() {
     </>
   );
 }
-

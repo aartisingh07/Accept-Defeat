@@ -38,16 +38,16 @@ export default function OAuthCallbackPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#070B14] flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full p-6 rounded-2xl bg-[#0D1528] border border-rose-500/30 text-center space-y-4">
-          <div className="w-12 h-12 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto">
+      <div className="min-h-screen bg-[#F0EBD8] flex flex-col items-center justify-center p-4">
+        <div className="max-w-md w-full p-6 rounded-2xl bg-[#FFFFFF] border border-[#B65C50]/30 text-center space-y-4 shadow-xl">
+          <div className="w-12 h-12 rounded-xl bg-[#F7EAE6] border border-[#B65C50]/30 text-[#B65C50] flex items-center justify-center mx-auto">
             <AlertCircle className="w-6 h-6" />
           </div>
-          <h2 className="text-base font-bold text-white">OAuth Authentication Failed</h2>
-          <p className="text-xs text-rose-300">{error}</p>
+          <h2 className="text-base font-bold text-[#0D1321]">OAuth Authentication Failed</h2>
+          <p className="text-xs text-[#B65C50]">{error}</p>
           <button
             onClick={() => navigate('/login')}
-            className="btn-primary-purple px-4 py-2 rounded-xl text-xs font-semibold text-white cursor-pointer"
+            className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer shadow-sm transition-colors"
           >
             Return to Login
           </button>
@@ -57,11 +57,11 @@ export default function OAuthCallbackPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#070B14] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-[#F0EBD8] flex flex-col items-center justify-center p-4">
       <div className="flex flex-col items-center space-y-3">
         <BrandLogo size="lg" />
-        <div className="flex items-center gap-2 text-xs font-mono text-purple-300">
-          <div className="w-4 h-4 border-2 border-purple-500/30 border-t-purple-400 rounded-full animate-spin" />
+        <div className="flex items-center gap-2 text-xs font-mono text-[#1D2D44]">
+          <div className="w-4 h-4 border-2 border-[#DDDCCF] border-t-[#1D2D44] rounded-full animate-spin" />
           <span>Finalizing OAuth session token...</span>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PublicOnlyRoute from './components/auth/PublicOnlyRoute';
+import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import ExploreChallengesPage from './pages/ExploreChallengesPage';
@@ -22,12 +23,12 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public Authentication Pages (Redirect to dashboard if already authenticated) */}
+          {/* Public Landing & Authentication Pages (Redirect to dashboard if already authenticated) */}
           <Route
             path="/"
             element={
               <PublicOnlyRoute>
-                <AuthPage />
+                <LandingPage />
               </PublicOnlyRoute>
             }
           />

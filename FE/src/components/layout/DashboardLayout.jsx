@@ -7,7 +7,7 @@ export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#070B14] text-[#F8FAFC] flex selection:bg-purple-600/30 selection:text-purple-200 relative">
+    <div className="min-h-screen bg-[#F0EBD8] text-[#0D1321] flex selection:bg-[#748CAB]/30 selection:text-[#1D2D44] relative">
       {/* Persistent Sidebar */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 

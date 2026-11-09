@@ -367,8 +367,13 @@ export default function ProfilePage() {
       return;
     }
 
-    if (trimmed.toLowerCase() === profile.username.toLowerCase()) {
+    if (trimmed.toLowerCase() === (profile?.username || '').toLowerCase()) {
       setUsernameError('New username is identical to your current username.');
+      return;
+    }
+
+    if (!usernameChangeInfo.eligible) {
+      setUsernameError(usernameChangeInfo.message || 'You can only change your username once every 30 days.');
       return;
     }
 
@@ -569,11 +574,11 @@ export default function ProfilePage() {
     return (
       <DashboardLayout>
         <div className="max-w-6xl mx-auto space-y-6 animate-pulse">
-          <div className="h-24 bg-[#0D1528] rounded-2xl border border-slate-800" />
-          <div className="h-48 bg-[#0D1528] rounded-2xl border border-slate-800" />
+          <div className="h-24 bg-[#FFFFFF] rounded-2xl border border-[#DDDCCF]" />
+          <div className="h-48 bg-[#FFFFFF] rounded-2xl border border-[#DDDCCF]" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="h-64 bg-[#0D1528] rounded-2xl border border-slate-800" />
-            <div className="h-64 bg-[#0D1528] rounded-2xl border border-slate-800" />
+            <div className="h-64 bg-[#FFFFFF] rounded-2xl border border-[#DDDCCF]" />
+            <div className="h-64 bg-[#FFFFFF] rounded-2xl border border-[#DDDCCF]" />
           </div>
         </div>
       </DashboardLayout>
@@ -626,14 +631,14 @@ export default function ProfilePage() {
 
         {/* Alerts Banner */}
         {successMessage && (
-          <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 text-xs flex items-center justify-between gap-3 animate-fadeIn">
-            <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="p-4 rounded-xl bg-[#EAF0E7] border border-[#55765B]/30 text-[#55765B] text-xs flex items-center justify-between gap-3 animate-fadeIn">
+            <div className="flex items-center gap-2.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-[#55765B] shrink-0" />
               <span>{successMessage}</span>
             </div>
             <button
               onClick={() => setSuccessMessage('')}
-              className="text-emerald-400 hover:text-white cursor-pointer px-1"
+              className="text-[#55765B] hover:text-[#1D2D44] cursor-pointer px-1 font-bold"
             >
               ✕
             </button>
@@ -641,14 +646,14 @@ export default function ProfilePage() {
         )}
 
         {errorMessage && (
-          <div className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-200 text-xs flex items-center justify-between gap-3 animate-fadeIn">
-            <div className="flex items-center gap-2.5">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+          <div className="p-4 rounded-xl bg-[#F7EAE6] border border-[#B65C50]/30 text-[#B65C50] text-xs flex items-center justify-between gap-3 animate-fadeIn">
+            <div className="flex items-center gap-2.5 font-medium">
+              <AlertCircle className="w-4 h-4 text-[#B65C50] shrink-0" />
               <span>{errorMessage}</span>
             </div>
             <button
               onClick={() => setErrorMessage('')}
-              className="text-rose-400 hover:text-white cursor-pointer px-1"
+              className="text-[#B65C50] hover:text-[#1D2D44] cursor-pointer px-1 font-bold"
             >
               ✕
             </button>
@@ -656,15 +661,15 @@ export default function ProfilePage() {
         )}
 
         {/* Page Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-2xl bg-[#0D1528] border border-purple-500/20 shadow-lg relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-full bg-gradient-to-l from-purple-600/10 to-transparent pointer-events-none" />
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-full bg-gradient-to-l from-[#748CAB]/15 to-transparent pointer-events-none" />
 
           <div className="space-y-1 relative z-10">
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-bold text-[#0D1321] tracking-tight flex items-center gap-2.5">
               <span>My Developer Profile</span>
-              <Sparkles className="w-5 h-5 text-purple-400" />
+              <Sparkles className="w-5 h-5 text-[#748CAB]" />
             </h1>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl">
+            <p className="text-xs sm:text-sm text-[#3E5C76] max-w-xl">
               Manage your identity, showcase your skills, and track your competitive journey.
             </p>
           </div>
@@ -676,7 +681,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={handleCancelEdit}
                   disabled={isSaving}
-                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-300 text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-[#DDDCCF] bg-[#F7F5EF] hover:bg-[#EAE5D9] text-[#0D1321] text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50"
                 >
                   <X className="w-4 h-4" />
                   <span>Cancel</span>
@@ -685,7 +690,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={handleSaveProfile}
                   disabled={isSaving}
-                  className="flex-1 sm:flex-none btn-primary-purple px-5 py-2.5 rounded-xl text-xs font-semibold text-white flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50 shadow-md shadow-purple-600/20"
+                  className="flex-1 sm:flex-none bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-5 py-2.5 rounded-xl text-xs font-semibold text-[#F0EBD8] flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50 shadow-sm"
                 >
                   {isSaving ? (
                     <>
@@ -704,7 +709,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={handleStartEdit}
-                className="btn-primary-purple px-5 py-2.5 rounded-xl text-xs font-semibold text-white flex items-center justify-center gap-2 cursor-pointer transition-all shadow-md shadow-purple-600/20"
+                className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-5 py-2.5 rounded-xl text-xs font-semibold text-[#F0EBD8] flex items-center justify-center gap-2 cursor-pointer transition-all shadow-sm"
               >
                 <Edit3 className="w-4 h-4" />
                 <span>Edit Profile</span>
@@ -714,24 +719,24 @@ export default function ProfilePage() {
         </div>
 
         {/* Profile Overview Card */}
-        <div className="p-6 rounded-2xl bg-[#0D1528] border border-slate-800 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 relative">
+        <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm flex flex-col md:flex-row items-center md:items-start justify-between gap-6 relative">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
             <div className="flex flex-col items-center sm:items-start gap-2">
               <div className="relative group">
                 <img
                   src={avatarUrl}
                   alt={userDisplayName}
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-purple-500/40 shadow-md shadow-purple-900/20"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-[#DDDCCF] shadow-sm"
                 />
                 {/* Overlay camera button on hover/tap */}
                 <button
                   type="button"
                   onClick={() => avatarInputRef.current?.click()}
                   title="Change avatar"
-                  className="absolute inset-0 rounded-2xl bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1 cursor-pointer text-white backdrop-blur-[1px]"
+                  className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1 cursor-pointer text-white backdrop-blur-[1px]"
                 >
-                  <Camera className="w-5 h-5 text-purple-300" />
-                  <span className="text-[10px] font-medium text-slate-200">Change</span>
+                  <Camera className="w-5 h-5 text-[#F0EBD8]" />
+                  <span className="text-[10px] font-medium text-[#F0EBD8]">Change</span>
                 </button>
 
                 {/* Bottom-right camera trigger button */}
@@ -739,7 +744,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={() => avatarInputRef.current?.click()}
                   title="Upload new avatar"
-                  className="absolute -bottom-1 -right-1 p-1.5 rounded-lg bg-[#070B14] border border-purple-500/40 text-purple-400 hover:text-white hover:bg-purple-600 transition-all cursor-pointer shadow-md"
+                  className="absolute -bottom-1 -right-1 p-1.5 rounded-lg bg-[#FFFFFF] border border-[#DDDCCF] text-[#0D1321] hover:bg-[#1D2D44] hover:text-[#F0EBD8] transition-all cursor-pointer shadow-sm"
                 >
                   <Camera className="w-3.5 h-3.5" />
                 </button>
@@ -749,7 +754,7 @@ export default function ProfilePage() {
                 <button
                   type="button"
                   onClick={() => setIsRemoveAvatarModalOpen(true)}
-                  className="text-[11px] text-slate-400 hover:text-rose-400 flex items-center gap-1 transition-colors cursor-pointer pt-0.5"
+                  className="text-[11px] text-[#3E5C76] hover:text-[#B65C50] flex items-center gap-1 transition-colors cursor-pointer pt-0.5 font-medium"
                   title="Reset to default avatar"
                 >
                   <Trash2 className="w-3 h-3" />
@@ -760,47 +765,47 @@ export default function ProfilePage() {
 
             <div className="space-y-1.5">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                <h2 className="text-lg sm:text-xl font-bold text-[#0D1321] tracking-tight">
                   {userDisplayName}
                 </h2>
-                <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 font-medium">
+                <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] font-semibold">
                   {usernameHandle}
                 </span>
               </div>
 
-              <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-slate-400">
-                <Mail className="w-3.5 h-3.5 text-slate-500" />
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-[#3E5C76]">
+                <Mail className="w-3.5 h-3.5 text-[#748CAB]" />
                 <span>{profile?.email}</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-400 font-semibold">
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#EAF0E7] text-[#55765B] font-semibold">
                   Verified
                 </span>
               </div>
 
-              <div className="flex items-center justify-center sm:justify-start gap-2 text-[11px] text-slate-500 pt-1">
-                <Calendar className="w-3.5 h-3.5" />
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-[11px] text-[#3E5C76] pt-1">
+                <Calendar className="w-3.5 h-3.5 text-[#748CAB]" />
                 <span>Member since {memberDate}</span>
               </div>
             </div>
           </div>
 
           {/* Quick Rank & Points Highlights */}
-          <div className="flex items-center gap-4 w-full md:w-auto justify-center md:justify-end pt-4 md:pt-0 border-t md:border-t-0 border-slate-800">
-            <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 text-center min-w-[105px]">
-              <div className="text-[11px] text-slate-400 font-medium flex items-center justify-center gap-1 mb-1">
-                <Award className="w-3.5 h-3.5 text-purple-400" />
+          <div className="flex items-center gap-4 w-full md:w-auto justify-center md:justify-end pt-4 md:pt-0 border-t md:border-t-0 border-[#DDDCCF]">
+            <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-center min-w-[105px]">
+              <div className="text-[11px] text-[#3E5C76] font-medium flex items-center justify-center gap-1 mb-1">
+                <Award className="w-3.5 h-3.5 text-[#748CAB]" />
                 <span>Rank</span>
               </div>
-              <div className="text-base font-bold font-mono text-white">
+              <div className="text-base font-bold font-mono text-[#0D1321]">
                 {profile?.rank ? `#${profile.rank}` : 'Unranked'}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 text-center min-w-[105px]">
-              <div className="text-[11px] text-slate-400 font-medium flex items-center justify-center gap-1 mb-1">
-                <Flame className="w-3.5 h-3.5 text-amber-400" />
+            <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-center min-w-[105px]">
+              <div className="text-[11px] text-[#3E5C76] font-medium flex items-center justify-center gap-1 mb-1">
+                <Flame className="w-3.5 h-3.5 text-[#A67C42]" />
                 <span>Points</span>
               </div>
-              <div className="text-base font-bold font-mono text-amber-400">
+              <div className="text-base font-bold font-mono text-[#A67C42]">
                 {profile?.points || 0} pts
               </div>
             </div>
@@ -812,14 +817,14 @@ export default function ProfilePage() {
           {/* Left Column (8 cols): Basic Info, Contact Info, Social Links, Skills */}
           <div className="lg:col-span-8 space-y-6">
             {/* 1. Basic Information Card */}
-            <div className="p-6 rounded-2xl bg-[#0D1528] border border-slate-800 space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <User className="w-4 h-4 text-purple-400" />
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-[#DDDCCF]">
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0D1321]">
+                  <User className="w-4 h-4 text-[#748CAB]" />
                   <span>Basic Information</span>
                 </div>
                 {isEditing && (
-                  <span className="text-[11px] font-mono text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-md">
+                  <span className="text-[11px] font-mono text-[#1D2D44] bg-[#F7F5EF] border border-[#DDDCCF] px-2 py-0.5 rounded-md font-semibold">
                     Editing Mode
                   </span>
                 )}
@@ -828,7 +833,7 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 {/* Full Name */}
                 <div className="space-y-1.5">
-                  <label htmlFor="profile-fullname" className="block text-xs font-semibold text-slate-300">
+                  <label htmlFor="profile-fullname" className="block text-xs font-semibold text-[#3E5C76]">
                     Full Name
                   </label>
                   {isEditing ? (
@@ -842,16 +847,16 @@ export default function ProfilePage() {
                         }
                         placeholder="e.g. Alex Rivera"
                         maxLength={60}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] transition-colors"
                       />
-                      <span className="text-[10px] text-slate-500 mt-1 block">
+                      <span className="text-[10px] text-[#3E5C76] mt-1 block">
                         Visible on your developer profile and certificates.
                       </span>
                     </div>
                   ) : (
-                    <div className="text-xs text-white p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80 font-medium">
+                    <div className="text-xs text-[#0D1321] p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] font-medium">
                       {profile?.name || (
-                        <span className="text-slate-500 italic">Not specified (click Edit Profile to add)</span>
+                        <span className="text-[#3E5C76] italic">Not specified (click Edit Profile to add)</span>
                       )}
                     </div>
                   )}
@@ -860,14 +865,14 @@ export default function ProfilePage() {
                 {/* Username with 30-Day Limit Logic */}
                 <div className="space-y-1.5 pt-1">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs font-semibold text-slate-300">
+                    <label className="block text-xs font-semibold text-[#3E5C76]">
                       Username (Editable once per 30 days)
                     </label>
                     <span
-                      className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded ${
+                      className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded border ${
                         usernameChangeInfo.eligible
-                          ? 'bg-emerald-500/15 text-emerald-300'
-                          : 'bg-amber-500/15 text-amber-300'
+                          ? 'bg-[#EAF0E7] border-[#55765B]/30 text-[#55765B]'
+                          : 'bg-[#F5EEDF] border-[#A67C42]/30 text-[#A67C42]'
                       }`}
                     >
                       {usernameChangeInfo.eligible ? 'Change Available' : 'Cooldown Active'}
@@ -875,10 +880,10 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="flex-1 text-xs text-white p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80 font-mono font-medium flex items-center justify-between">
+                    <div className="flex-1 text-xs text-[#0D1321] p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] font-mono font-medium flex items-center justify-between">
                       <span>@{profile?.username}</span>
                       {!usernameChangeInfo.eligible && (
-                        <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <Lock className="w-3.5 h-3.5 text-[#A67C42] shrink-0" />
                       )}
                     </div>
 
@@ -890,14 +895,14 @@ export default function ProfilePage() {
                         setIsUsernameModalOpen(true);
                       }}
                       disabled={!usernameChangeInfo.eligible}
-                      className="px-3.5 py-2.5 rounded-xl border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
+                      className="px-3.5 py-2.5 rounded-xl border border-[#DDDCCF] bg-[#F7F5EF] hover:bg-[#EAE5D9] text-[#0D1321] text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0 cursor-pointer"
                     >
                       Change Username
                     </button>
                   </div>
 
-                  <p className="text-[11px] text-slate-400 flex items-center gap-1.5 pt-0.5">
-                    <AlertCircle className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                  <p className="text-[11px] text-[#3E5C76] flex items-center gap-1.5 pt-0.5">
+                    <AlertCircle className="w-3.5 h-3.5 text-[#748CAB] shrink-0" />
                     <span>{usernameChangeInfo.message}</span>
                   </p>
                 </div>
@@ -905,10 +910,10 @@ export default function ProfilePage() {
             </div>
 
             {/* 2. Contact Information and Privacy Card */}
-            <div className="p-6 rounded-2xl bg-[#0D1528] border border-slate-800 space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <ShieldAlert className="w-4 h-4 text-purple-400" />
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-[#DDDCCF]">
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0D1321]">
+                  <ShieldAlert className="w-4 h-4 text-[#748CAB]" />
                   <span>Contact Information & Privacy</span>
                 </div>
               </div>
@@ -917,34 +922,34 @@ export default function ProfilePage() {
                 {/* Email (Always Read-Only) */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs font-semibold text-slate-300">
+                    <label className="block text-xs font-semibold text-[#3E5C76]">
                       Primary Account Email
                     </label>
-                    <span className="text-[10px] text-slate-500 flex items-center gap-1 font-mono">
-                      <Lock className="w-3 h-3 text-slate-500" />
+                    <span className="text-[10px] text-[#3E5C76] flex items-center gap-1 font-mono">
+                      <Lock className="w-3 h-3 text-[#3E5C76]" />
                       <span>Non-editable</span>
                     </span>
                   </div>
-                  <div className="text-xs text-slate-300 p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80 font-mono flex items-center justify-between">
+                  <div className="text-xs text-[#0D1321] p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] font-mono flex items-center justify-between">
                     <span>{profile?.email}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-[#F7F5EF] border border-[#DDDCCF] text-[#3E5C76] font-semibold">
                       Primary
                     </span>
                   </div>
-                  <span className="text-[10px] text-slate-500 block">
+                  <span className="text-[10px] text-[#3E5C76] block">
                     Associated with your authentication credentials and account security.
                   </span>
                 </div>
 
                 {/* Phone Number (Immutable Once Saved) */}
-                <div className="space-y-2 pt-2 border-t border-slate-800/60">
+                <div className="space-y-2 pt-2 border-t border-[#DDDCCF]">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs font-semibold text-slate-300">
+                    <label className="block text-xs font-semibold text-[#3E5C76]">
                       Phone Number
                     </label>
                     {profile?.phone && (
-                      <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-mono">
-                        <Lock className="w-3 h-3 text-emerald-400" />
+                      <span className="text-[10px] text-[#55765B] flex items-center gap-1 font-mono font-semibold">
+                        <Lock className="w-3 h-3 text-[#55765B]" />
                         <span>Saved & Immutable</span>
                       </span>
                     )}
@@ -952,18 +957,18 @@ export default function ProfilePage() {
 
                   {profile?.phone ? (
                     /* Case A: Phone Already Saved (Read-Only) + Privacy Switcher */
-                    <div className="p-4 rounded-xl bg-[#070B14] border border-slate-800 space-y-3">
+                    <div className="p-4 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] space-y-3">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2.5">
-                          <Phone className="w-4 h-4 text-purple-400" />
-                          <span className="font-mono text-xs text-white font-medium">
+                          <Phone className="w-4 h-4 text-[#748CAB]" />
+                          <span className="font-mono text-xs text-[#0D1321] font-semibold">
                             {profile.phone}
                           </span>
                         </div>
 
                         {/* Interactive Privacy Preference Toggle */}
                         <div className="flex items-center gap-2">
-                          <span className="text-[11px] text-slate-400">Visibility:</span>
+                          <span className="text-[11px] text-[#3E5C76]">Visibility:</span>
                           <button
                             type="button"
                             onClick={() =>
@@ -973,18 +978,18 @@ export default function ProfilePage() {
                             }
                             className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
                               profile.phoneVisibility === 'public'
-                                ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
-                                : 'bg-slate-800 border-slate-700 text-slate-300'
+                                ? 'bg-[#EAF0E7] border-[#55765B]/30 text-[#55765B]'
+                                : 'bg-[#F7F5EF] border-[#DDDCCF] text-[#3E5C76]'
                             }`}
                           >
                             {profile.phoneVisibility === 'public' ? (
                               <>
-                                <Eye className="w-3 h-3 text-emerald-400" />
+                                <Eye className="w-3 h-3 text-[#55765B]" />
                                 <span>Public</span>
                               </>
                             ) : (
                               <>
-                                <EyeOff className="w-3 h-3 text-slate-400" />
+                                <EyeOff className="w-3 h-3 text-[#3E5C76]" />
                                 <span>Private</span>
                               </>
                             )}
@@ -992,7 +997,7 @@ export default function ProfilePage() {
                         </div>
                       </div>
 
-                      <p className="text-[11px] text-slate-500 border-t border-slate-800/60 pt-2">
+                      <p className="text-[11px] text-[#3E5C76] border-t border-[#DDDCCF] pt-2">
                         {profile.phoneVisibility === 'public'
                           ? 'Visible to other coders on your public developer profile.'
                           : 'Kept strictly private and confidential. Never exposed in public directories.'}
@@ -1000,15 +1005,15 @@ export default function ProfilePage() {
                     </div>
                   ) : (
                     /* Case B: First-time Phone Setup */
-                    <form onSubmit={handleOpenPhoneConfirm} className="p-4 rounded-xl bg-[#070B14] border border-purple-500/20 space-y-3.5">
-                      <div className="flex items-center gap-2 text-xs font-semibold text-purple-300">
-                        <Phone className="w-4 h-4 text-purple-400" />
+                    <form onSubmit={handleOpenPhoneConfirm} className="p-4 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] space-y-3.5">
+                      <div className="flex items-center gap-2 text-xs font-semibold text-[#0D1321]">
+                        <Phone className="w-4 h-4 text-[#748CAB]" />
                         <span>Add Phone Number (One-time Setup)</span>
                       </div>
 
-                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                      <p className="text-[11px] text-[#3E5C76] leading-relaxed">
                         Add a verified mobile number for account notifications and security alerts.
-                        <span className="block text-amber-300 font-medium mt-1">
+                        <span className="block text-[#A67C42] font-semibold mt-1">
                           ⚠️ Note: Once saved, your phone number cannot be changed or deleted.
                         </span>
                       </p>
@@ -1019,11 +1024,11 @@ export default function ProfilePage() {
                           value={phoneInput}
                           onChange={(e) => setPhoneInput(e.target.value)}
                           placeholder="+1 555 123 4567"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#0D1528] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500 font-mono transition-colors"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] font-mono transition-colors"
                         />
 
                         {phoneError && (
-                          <p className="text-[11px] text-rose-400 flex items-center gap-1">
+                          <p className="text-[11px] text-[#B65C50] flex items-center gap-1">
                             <AlertCircle className="w-3 h-3 shrink-0" />
                             <span>{phoneError}</span>
                           </p>
@@ -1032,15 +1037,15 @@ export default function ProfilePage() {
 
                       {/* Privacy Preference Selection */}
                       <div className="space-y-1.5">
-                        <label className="block text-[11px] font-semibold text-slate-300">
+                        <label className="block text-[11px] font-semibold text-[#3E5C76]">
                           Privacy Preference
                         </label>
                         <div className="grid grid-cols-2 gap-2">
                           <label
                             className={`p-2.5 rounded-xl border text-xs flex items-center gap-2 cursor-pointer transition-all ${
                               phoneVisibilityInput === 'private'
-                                ? 'bg-purple-950/30 border-purple-500/50 text-white'
-                                : 'bg-[#0D1528] border-slate-800 text-slate-400'
+                                ? 'bg-[#F7F5EF] border-[#1D2D44] text-[#0D1321]'
+                                : 'bg-[#FFFFFF] border-[#DDDCCF] text-[#3E5C76]'
                             }`}
                           >
                             <input
@@ -1049,19 +1054,19 @@ export default function ProfilePage() {
                               value="private"
                               checked={phoneVisibilityInput === 'private'}
                               onChange={() => setPhoneVisibilityInput('private')}
-                              className="accent-purple-500"
+                              className="accent-[#1D2D44]"
                             />
                             <div>
                               <span className="font-semibold block">Private (Default)</span>
-                              <span className="text-[10px] text-slate-500 block">Hidden from public</span>
+                              <span className="text-[10px] text-[#3E5C76] block">Hidden from public</span>
                             </div>
                           </label>
 
                           <label
                             className={`p-2.5 rounded-xl border text-xs flex items-center gap-2 cursor-pointer transition-all ${
                               phoneVisibilityInput === 'public'
-                                ? 'bg-purple-950/30 border-purple-500/50 text-white'
-                                : 'bg-[#0D1528] border-slate-800 text-slate-400'
+                                ? 'bg-[#F7F5EF] border-[#1D2D44] text-[#0D1321]'
+                                : 'bg-[#FFFFFF] border-[#DDDCCF] text-[#3E5C76]'
                             }`}
                           >
                             <input
@@ -1070,11 +1075,11 @@ export default function ProfilePage() {
                               value="public"
                               checked={phoneVisibilityInput === 'public'}
                               onChange={() => setPhoneVisibilityInput('public')}
-                              className="accent-purple-500"
+                              className="accent-[#1D2D44]"
                             />
                             <div>
                               <span className="font-semibold block">Public</span>
-                              <span className="text-[10px] text-slate-500 block">Shown on profile</span>
+                              <span className="text-[10px] text-[#3E5C76] block">Shown on profile</span>
                             </div>
                           </label>
                         </div>
@@ -1084,7 +1089,7 @@ export default function ProfilePage() {
                         <button
                           type="submit"
                           disabled={!phoneInput.trim()}
-                          className="btn-primary-purple px-4 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-4 py-2 rounded-xl text-xs font-semibold text-[#F0EBD8] flex items-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                           <Shield className="w-3.5 h-3.5" />
                           <span>Save Phone Number</span>
@@ -1097,10 +1102,10 @@ export default function ProfilePage() {
             </div>
 
             {/* 3. Social Links Card */}
-            <div className="p-6 rounded-2xl bg-[#0D1528] border border-slate-800 space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <Globe className="w-4 h-4 text-purple-400" />
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-[#DDDCCF]">
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0D1321]">
+                  <Globe className="w-4 h-4 text-[#748CAB]" />
                   <span>Social Links & Profiles</span>
                 </div>
               </div>
@@ -1108,7 +1113,7 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 {/* LinkedIn */}
                 <div className="space-y-1">
-                  <label htmlFor="social-linkedin" className="block text-xs font-semibold text-slate-300">
+                  <label htmlFor="social-linkedin" className="block text-xs font-semibold text-[#3E5C76]">
                     LinkedIn URL
                   </label>
                   {isEditing ? (
@@ -1123,20 +1128,20 @@ export default function ProfilePage() {
                         }))
                       }
                       placeholder="https://linkedin.com/in/username"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500 font-mono transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] font-mono transition-colors"
                     />
                   ) : profile?.socialLinks?.linkedin ? (
                     <a
                       href={profile.socialLinks.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80 text-xs text-purple-300 hover:text-white flex items-center justify-between group transition-colors"
+                      className="p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] hover:text-[#1D2D44] flex items-center justify-between group transition-colors"
                     >
                       <span className="font-mono truncate">{profile.socialLinks.linkedin}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 shrink-0 ml-2" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#3E5C76] group-hover:text-[#1D2D44] shrink-0 ml-2" />
                     </a>
                   ) : (
-                    <div className="text-xs text-slate-500 italic p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80">
+                    <div className="text-xs text-[#3E5C76] italic p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF]">
                       Not linked
                     </div>
                   )}
@@ -1144,7 +1149,7 @@ export default function ProfilePage() {
 
                 {/* GitHub */}
                 <div className="space-y-1">
-                  <label htmlFor="social-github" className="block text-xs font-semibold text-slate-300">
+                  <label htmlFor="social-github" className="block text-xs font-semibold text-[#3E5C76]">
                     GitHub URL
                   </label>
                   {isEditing ? (
@@ -1159,20 +1164,20 @@ export default function ProfilePage() {
                         }))
                       }
                       placeholder="https://github.com/username"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500 font-mono transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] font-mono transition-colors"
                     />
                   ) : profile?.socialLinks?.github ? (
                     <a
                       href={profile.socialLinks.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80 text-xs text-purple-300 hover:text-white flex items-center justify-between group transition-colors"
+                      className="p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] hover:text-[#1D2D44] flex items-center justify-between group transition-colors"
                     >
                       <span className="font-mono truncate">{profile.socialLinks.github}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 shrink-0 ml-2" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#3E5C76] group-hover:text-[#1D2D44] shrink-0 ml-2" />
                     </a>
                   ) : (
-                    <div className="text-xs text-slate-500 italic p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80">
+                    <div className="text-xs text-[#3E5C76] italic p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF]">
                       Not linked
                     </div>
                   )}
@@ -1180,7 +1185,7 @@ export default function ProfilePage() {
 
                 {/* LeetCode */}
                 <div className="space-y-1">
-                  <label htmlFor="social-leetcode" className="block text-xs font-semibold text-slate-300">
+                  <label htmlFor="social-leetcode" className="block text-xs font-semibold text-[#3E5C76]">
                     LeetCode URL
                   </label>
                   {isEditing ? (
@@ -1195,36 +1200,36 @@ export default function ProfilePage() {
                         }))
                       }
                       placeholder="https://leetcode.com/u/username"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500 font-mono transition-colors"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] font-mono transition-colors"
                     />
                   ) : profile?.socialLinks?.leetcode ? (
                     <a
                       href={profile.socialLinks.leetcode}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80 text-xs text-purple-300 hover:text-white flex items-center justify-between group transition-colors"
+                      className="p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] hover:text-[#1D2D44] flex items-center justify-between group transition-colors"
                     >
                       <span className="font-mono truncate">{profile.socialLinks.leetcode}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 shrink-0 ml-2" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#3E5C76] group-hover:text-[#1D2D44] shrink-0 ml-2" />
                     </a>
                   ) : (
-                    <div className="text-xs text-slate-500 italic p-2.5 rounded-xl bg-[#070B14] border border-slate-800/80">
+                    <div className="text-xs text-[#3E5C76] italic p-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF]">
                       Not linked
                     </div>
                   )}
                 </div>
 
                 {/* Other Social Links */}
-                <div className="space-y-2 pt-2 border-t border-slate-800/60">
+                <div className="space-y-2 pt-2 border-t border-[#DDDCCF]">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs font-semibold text-slate-300">
+                    <label className="block text-xs font-semibold text-[#3E5C76]">
                       Additional Portfolio & Links (Max 10)
                     </label>
                     {isEditing && formData.socialLinks.other.length < 10 && (
                       <button
                         type="button"
                         onClick={handleAddOtherLink}
-                        className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1 font-semibold cursor-pointer"
+                        className="text-xs text-[#1D2D44] hover:text-[#0D1321] flex items-center gap-1 font-semibold cursor-pointer"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Add Link</span>
@@ -1235,8 +1240,8 @@ export default function ProfilePage() {
                   {isEditing ? (
                     <div className="space-y-2">
                       {formData.socialLinks.other.length === 0 ? (
-                        <p className="text-[11px] text-slate-500 italic">
-                          No additional links. Click "Add Link" above to add your portfolio or X.
+                        <p className="text-[11px] text-[#3E5C76] italic">
+                          No additional links. Click "Add Link" above to add your portfolio or personal blog.
                         </p>
                       ) : (
                         formData.socialLinks.other.map((link, idx) => (
@@ -1246,19 +1251,19 @@ export default function ProfilePage() {
                               value={link.name}
                               onChange={(e) => handleUpdateOtherLink(idx, 'name', e.target.value)}
                               placeholder="Platform (e.g. Portfolio)"
-                              className="w-1/3 px-3 py-2 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500"
+                              className="w-1/3 px-3 py-2 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44]"
                             />
                             <input
                               type="url"
                               value={link.url}
                               onChange={(e) => handleUpdateOtherLink(idx, 'url', e.target.value)}
                               placeholder="https://example.com"
-                              className="flex-1 px-3 py-2 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500 font-mono"
+                              className="flex-1 px-3 py-2 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44] font-mono"
                             />
                             <button
                               type="button"
                               onClick={() => handleRemoveOtherLink(idx)}
-                              className="p-2 text-slate-500 hover:text-rose-400 cursor-pointer"
+                              className="p-2 text-[#3E5C76] hover:text-[#B65C50] cursor-pointer"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
@@ -1276,14 +1281,14 @@ export default function ProfilePage() {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-3 py-1.5 rounded-xl bg-[#070B14] border border-slate-800 text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                            className="px-3 py-1.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] hover:text-[#1D2D44] flex items-center gap-1.5 transition-colors font-medium"
                           >
                             <span>{link.name || 'Link'}</span>
-                            <ExternalLink className="w-3 h-3 text-slate-500" />
+                            <ExternalLink className="w-3 h-3 text-[#3E5C76]" />
                           </a>
                         ))
                       ) : (
-                        <span className="text-xs text-slate-500 italic">No additional links added</span>
+                        <span className="text-xs text-[#3E5C76] italic">No additional links added</span>
                       )}
                     </div>
                   )}
@@ -1292,13 +1297,13 @@ export default function ProfilePage() {
             </div>
 
             {/* 4. Skills and Technologies Card */}
-            <div className="p-6 rounded-2xl bg-[#0D1528] border border-slate-800 space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <Code2 className="w-4 h-4 text-purple-400" />
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-[#DDDCCF]">
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0D1321]">
+                  <Code2 className="w-4 h-4 text-[#748CAB]" />
                   <span>Skills & Technologies</span>
                 </div>
-                <span className="text-xs text-slate-400 font-mono">
+                <span className="text-xs text-[#3E5C76] font-mono">
                   {isEditing ? formData.skills.length : profile?.skills?.length || 0} / 30
                 </span>
               </div>
@@ -1317,12 +1322,12 @@ export default function ProfilePage() {
                         }
                       }}
                       placeholder="Add a technology or language (e.g. Next.js, GraphQL)"
-                      className="flex-1 px-3.5 py-2 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 focus:outline-none focus:border-[#1D2D44]"
                     />
                     <button
                       type="button"
                       onClick={() => handleAddSkill()}
-                      className="px-4 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 text-xs font-semibold cursor-pointer transition-all"
+                      className="px-4 py-2 rounded-xl bg-[#F7F5EF] hover:bg-[#EAE5D9] border border-[#DDDCCF] text-[#0D1321] text-xs font-semibold cursor-pointer transition-all"
                     >
                       Add
                     </button>
@@ -1330,7 +1335,7 @@ export default function ProfilePage() {
 
                   {/* Popular suggestions */}
                   <div className="space-y-1.5 pt-1">
-                    <span className="text-[11px] text-slate-400 font-medium">Quick Suggestions:</span>
+                    <span className="text-[11px] text-[#3E5C76] font-medium">Quick Suggestions:</span>
                     <div className="flex flex-wrap gap-1.5">
                       {POPULAR_SKILLS.map((s) => {
                         const isAdded = formData.skills.some(
@@ -1344,8 +1349,8 @@ export default function ProfilePage() {
                             disabled={isAdded}
                             className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-all cursor-pointer ${
                               isAdded
-                                ? 'bg-slate-800/40 text-slate-600 cursor-not-allowed border border-slate-800'
-                                : 'bg-[#070B14] hover:bg-purple-950/40 border border-slate-700 text-slate-300 hover:text-purple-300 hover:border-purple-500/30'
+                                ? 'bg-[#F7F5EF] text-[#3E5C76]/50 cursor-not-allowed border border-[#DDDCCF]'
+                                : 'bg-[#FFFFFF] hover:bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] hover:text-[#1D2D44]'
                             }`}
                           >
                             + {s}
@@ -1363,14 +1368,14 @@ export default function ProfilePage() {
                   (isEditing ? formData.skills : profile.skills).map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-medium flex items-center gap-1.5 animate-fadeIn"
+                      className="px-3 py-1.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs font-medium flex items-center gap-1.5 animate-fadeIn"
                     >
                       <span>{skill}</span>
                       {isEditing && (
                         <button
                           type="button"
                           onClick={() => handleRemoveSkill(skill)}
-                          className="hover:text-rose-400 cursor-pointer ml-1"
+                          className="hover:text-[#B65C50] cursor-pointer ml-1"
                         >
                           ✕
                         </button>
@@ -1378,7 +1383,7 @@ export default function ProfilePage() {
                     </span>
                   ))
                 ) : (
-                  <p className="text-xs text-slate-500 italic">
+                  <p className="text-xs text-[#3E5C76] italic">
                     No skills added yet. Click Edit Profile to showcase your programming languages and frameworks.
                   </p>
                 )}
@@ -1388,76 +1393,76 @@ export default function ProfilePage() {
 
           {/* Right Column (4 cols): Competitive Statistics */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="p-6 rounded-2xl bg-[#0D1528] border border-slate-800 space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <Trophy className="w-4 h-4 text-amber-400" />
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-sm space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-[#DDDCCF]">
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0D1321]">
+                  <Trophy className="w-4 h-4 text-[#A67C42]" />
                   <span>Competitive Statistics</span>
                 </div>
-                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 font-bold">
+                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[#F5EEDF] border border-[#A67C42]/30 text-[#A67C42] font-bold">
                   Live Arena
                 </span>
               </div>
 
               <div className="space-y-3">
                 {/* Challenges Solved */}
-                <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span className="text-xs text-slate-300 font-medium">Challenges Solved</span>
+                    <CheckCircle2 className="w-4 h-4 text-[#55765B]" />
+                    <span className="text-xs text-[#0D1321] font-medium">Challenges Solved</span>
                   </div>
-                  <span className="text-sm font-bold font-mono text-white">
+                  <span className="text-sm font-bold font-mono text-[#0D1321]">
                     {profile?.challengesSolved || 0}
                   </span>
                 </div>
 
                 {/* Live Battles Won */}
-                <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <Swords className="w-4 h-4 text-purple-400" />
-                    <span className="text-xs text-slate-300 font-medium">Live Battles Won</span>
+                    <Swords className="w-4 h-4 text-[#1D2D44]" />
+                    <span className="text-xs text-[#0D1321] font-medium">Live Battles Won</span>
                   </div>
-                  <span className="text-sm font-bold font-mono text-white">
+                  <span className="text-sm font-bold font-mono text-[#0D1321]">
                     {profile?.battlesWon || 0}
                   </span>
                 </div>
 
                 {/* Battle Win Rate */}
-                <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <Award className="w-4 h-4 text-amber-400" />
-                    <span className="text-xs text-slate-300 font-medium">Battle Win Rate</span>
+                    <Award className="w-4 h-4 text-[#A67C42]" />
+                    <span className="text-xs text-[#0D1321] font-medium">Battle Win Rate</span>
                   </div>
-                  <span className="text-sm font-bold font-mono text-amber-400">
+                  <span className="text-sm font-bold font-mono text-[#A67C42]">
                     {winRate}
                   </span>
                 </div>
 
                 {/* Total Points */}
-                <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <Flame className="w-4 h-4 text-amber-500" />
-                    <span className="text-xs text-slate-300 font-medium">Total Points</span>
+                    <Flame className="w-4 h-4 text-[#A67C42]" />
+                    <span className="text-xs text-[#0D1321] font-medium">Total Points</span>
                   </div>
-                  <span className="text-sm font-bold font-mono text-amber-300">
+                  <span className="text-sm font-bold font-mono text-[#A67C42]">
                     {profile?.points || 0}
                   </span>
                 </div>
 
                 {/* Global Rank */}
-                <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 flex items-center justify-between">
+                <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <Trophy className="w-4 h-4 text-purple-400" />
-                    <span className="text-xs text-slate-300 font-medium">Global Arena Rank</span>
+                    <Trophy className="w-4 h-4 text-[#1D2D44]" />
+                    <span className="text-xs text-[#0D1321] font-medium">Global Arena Rank</span>
                   </div>
-                  <span className="text-sm font-bold font-mono text-white">
+                  <span className="text-sm font-bold font-mono text-[#0D1321]">
                     {profile?.rank ? `#${profile.rank}` : 'Unranked'}
                   </span>
                 </div>
               </div>
 
               {/* Informative server-controlled note */}
-              <div className="p-3 rounded-xl bg-purple-950/20 border border-purple-500/20 text-[11px] text-purple-300 leading-relaxed">
+              <div className="p-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[11px] text-[#3E5C76] leading-relaxed">
                 Competitive rank and points are dynamically earned through arena battle victories and verified challenge solves. They cannot be modified manually.
               </div>
             </div>
@@ -1466,32 +1471,44 @@ export default function ProfilePage() {
 
         {/* Modal: Change Username */}
         {isUsernameModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-            <div className="w-full max-w-md p-6 rounded-2xl bg-[#0D1528] border border-purple-500/30 shadow-2xl space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <Edit3 className="w-4 h-4 text-purple-400" />
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
+            <div className="w-full max-w-md p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-[#DDDCCF] pb-3">
+                <h3 className="text-base font-bold text-[#0D1321] flex items-center gap-2">
+                  <Edit3 className="w-4 h-4 text-[#748CAB]" />
                   <span>Change Username</span>
                 </h3>
                 <button
                   onClick={() => setIsUsernameModalOpen(false)}
-                  className="text-slate-400 hover:text-white cursor-pointer"
+                  className="text-[#3E5C76] hover:text-[#1D2D44] cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-amber-200 text-xs">
-                ⚠️ <strong>30-Day Policy:</strong> You can only change your username once every 30 days. This will update your profile handle immediately.
-              </div>
+              {usernameChangeInfo.eligible ? (
+                <div className="p-3 rounded-xl bg-[#F5EEDF] border border-[#A67C42]/30 text-[#A67C42] text-xs leading-relaxed">
+                  ⚠️ <strong>30-Day Policy:</strong> You can only change your username once every 30 days. This will update your profile handle immediately.
+                </div>
+              ) : (
+                <div className="p-3.5 rounded-xl bg-[#F5EEDF] border border-[#A67C42]/40 text-[#A67C42] text-xs space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-[#A67C42]">
+                    <Lock className="w-4 h-4 shrink-0" />
+                    <span>30-Day Cooldown Currently Active</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    {usernameChangeInfo.message}
+                  </p>
+                </div>
+              )}
 
               <form onSubmit={handleSaveUsername} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label htmlFor="new-username-input" className="block text-xs font-medium text-slate-300">
+                  <label htmlFor="new-username-input" className="block text-xs font-semibold text-[#3E5C76]">
                     New Username
                   </label>
                   <div className="relative">
-                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 font-mono text-xs">
+                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-[#3E5C76] font-mono text-xs">
                       @
                     </span>
                     <input
@@ -1501,16 +1518,17 @@ export default function ProfilePage() {
                       onChange={(e) => setNewUsername(e.target.value)}
                       placeholder="new_username"
                       maxLength={24}
-                      className="w-full pl-8 pr-3.5 py-2.5 rounded-xl bg-[#070B14] border border-slate-700 text-white text-xs placeholder:text-slate-500 font-mono focus:outline-none focus:border-purple-500"
+                      disabled={!usernameChangeInfo.eligible}
+                      className="w-full pl-8 pr-3.5 py-2.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-[#0D1321] text-xs placeholder:text-[#3E5C76]/60 font-mono focus:outline-none focus:border-[#1D2D44] disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-[#3E5C76]">
                     3-24 characters, letters, numbers, and underscores only.
                   </span>
                 </div>
 
                 {usernameError && (
-                  <p className="text-xs text-rose-400 flex items-center gap-1.5">
+                  <p className="text-xs text-[#B65C50] flex items-center gap-1.5 font-medium bg-[#F7EAE6] p-2.5 rounded-xl border border-[#B65C50]/30">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{usernameError}</span>
                   </p>
@@ -1520,14 +1538,19 @@ export default function ProfilePage() {
                   <button
                     type="button"
                     onClick={() => setIsUsernameModalOpen(false)}
-                    className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
+                    className="px-4 py-2 rounded-xl border border-[#DDDCCF] bg-[#F7F5EF] text-[#0D1321] hover:bg-[#EAE5D9] text-xs font-semibold cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    disabled={usernameSaving || !newUsername.trim()}
-                    className="btn-primary-purple px-4 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                    disabled={
+                      usernameSaving ||
+                      !newUsername.trim() ||
+                      !usernameChangeInfo.eligible ||
+                      newUsername.trim().toLowerCase() === (profile?.username || '').toLowerCase()
+                    }
+                    className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm transition-colors"
                   >
                     {usernameSaving ? (
                       <>
@@ -1546,32 +1569,32 @@ export default function ProfilePage() {
 
         {/* Modal: Confirm Phone Number Setup */}
         {isPhoneConfirmOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-            <div className="w-full max-w-md p-6 rounded-2xl bg-[#0D1528] border border-amber-500/40 shadow-2xl space-y-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
+            <div className="w-full max-w-md p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-2xl space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F5EEDF] border border-[#A67C42]/30 flex items-center justify-center text-[#A67C42] shrink-0">
                   <ShieldAlert className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">Confirm Phone Number</h3>
-                  <p className="text-xs text-slate-400">Irreversible Action</p>
+                  <h3 className="text-sm font-bold text-[#0D1321]">Confirm Phone Number</h3>
+                  <p className="text-xs text-[#3E5C76]">Irreversible Action</p>
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#070B14] border border-slate-800 space-y-2">
+              <div className="p-3.5 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Phone Number:</span>
-                  <span className="font-mono font-bold text-white">{phoneInput}</span>
+                  <span className="text-[#3E5C76]">Phone Number:</span>
+                  <span className="font-mono font-bold text-[#0D1321]">{phoneInput}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Visibility:</span>
-                  <span className="capitalize font-semibold text-purple-300">
+                  <span className="text-[#3E5C76]">Visibility:</span>
+                  <span className="capitalize font-semibold text-[#1D2D44]">
                     {phoneVisibilityInput}
                   </span>
                 </div>
               </div>
 
-              <p className="text-xs text-amber-200/90 leading-relaxed">
+              <p className="text-xs text-[#A67C42] leading-relaxed">
                 Your phone number <strong>cannot be changed or removed</strong> after it is saved. Please verify that you entered the correct number.
               </p>
 
@@ -1580,7 +1603,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={() => setIsPhoneConfirmOpen(false)}
                   disabled={phoneSaving}
-                  className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 rounded-xl border border-[#DDDCCF] bg-[#F7F5EF] text-[#0D1321] hover:bg-[#EAE5D9] text-xs font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1588,7 +1611,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={handleConfirmSavePhone}
                   disabled={phoneSaving}
-                  className="btn-primary-purple px-4 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-4 py-2 rounded-xl text-xs font-semibold text-[#F0EBD8] flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
                 >
                   {phoneSaving ? (
                     <>
@@ -1606,18 +1629,18 @@ export default function ProfilePage() {
 
         {/* Modal: Avatar Upload Preview */}
         {isAvatarModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-            <div className="w-full max-w-md p-6 rounded-2xl bg-[#0D1528] border border-purple-500/40 shadow-2xl space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
+            <div className="w-full max-w-md p-6 rounded-2xl bg-[#FFFFFF] border border-[#DDDCCF] shadow-2xl space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-[#DDDCCF]">
                 <div className="flex items-center gap-2.5">
-                  <Camera className="w-5 h-5 text-purple-400" />
-                  <h3 className="text-base font-bold text-white">Upload Profile Picture</h3>
+                  <Camera className="w-5 h-5 text-[#748CAB]" />
+                  <h3 className="text-base font-bold text-[#0D1321]">Upload Profile Picture</h3>
                 </div>
                 <button
                   type="button"
                   onClick={handleCloseAvatarModal}
                   disabled={avatarUploading}
-                  className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800/60 transition-colors disabled:opacity-40 cursor-pointer"
+                  className="text-[#3E5C76] hover:text-[#1D2D44] p-1 rounded-lg hover:bg-[#F7F5EF] transition-colors disabled:opacity-40 cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1629,32 +1652,32 @@ export default function ProfilePage() {
                   <img
                     src={avatarPreviewUrl}
                     alt="Avatar preview"
-                    className="w-32 h-32 rounded-2xl object-cover border-2 border-purple-500 shadow-xl shadow-purple-950/50"
+                    className="w-32 h-32 rounded-2xl object-cover border-2 border-[#DDDCCF] shadow-md"
                   />
-                  <div className="absolute -bottom-1 -right-1 p-1 rounded-lg bg-[#070B14] border border-purple-500/40 text-purple-400">
+                  <div className="absolute -bottom-1 -right-1 p-1 rounded-lg bg-[#FFFFFF] border border-[#DDDCCF] text-[#748CAB]">
                     <Sparkles className="w-4 h-4" />
                   </div>
                 </div>
 
                 {selectedAvatarFile && (
                   <div className="text-center space-y-0.5">
-                    <p className="text-xs font-medium text-slate-200 truncate max-w-xs">
+                    <p className="text-xs font-medium text-[#0D1321] truncate max-w-xs">
                       {selectedAvatarFile.name}
                     </p>
-                    <p className="text-[11px] text-slate-400 font-mono">
+                    <p className="text-[11px] text-[#3E5C76] font-mono">
                       {formatFileSize(selectedAvatarFile.size)} • {selectedAvatarFile.type.split('/')[1]?.toUpperCase()}
                     </p>
                   </div>
                 )}
               </div>
 
-              <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-xs text-purple-200/90 leading-relaxed">
+              <div className="p-3 rounded-xl bg-[#F7F5EF] border border-[#DDDCCF] text-xs text-[#0D1321] leading-relaxed">
                 Cloudinary will automatically center your face, optimize format & quality, and crop this into a high-res square profile avatar.
               </div>
 
               {avatarError && (
-                <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <div className="p-3 rounded-xl bg-[#F7EAE6] border border-[#B65C50]/30 text-[#B65C50] text-xs flex items-center gap-2 font-medium">
+                  <AlertCircle className="w-4 h-4 text-[#B65C50] shrink-0" />
                   <span>{avatarError}</span>
                 </div>
               )}
@@ -1664,7 +1687,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={avatarUploading}
-                  className="px-4 py-2 rounded-xl border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer transition-colors disabled:opacity-40"
+                  className="px-4 py-2 rounded-xl border border-[#DDDCCF] bg-[#F7F5EF] hover:bg-[#EAE5D9] text-[#0D1321] text-xs font-semibold cursor-pointer transition-colors disabled:opacity-40"
                 >
                   Choose Different
                 </button>
@@ -1672,7 +1695,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={handleCloseAvatarModal}
                   disabled={avatarUploading}
-                  className="px-4 py-2 rounded-xl border border-slate-800 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer transition-colors disabled:opacity-40"
+                  className="px-4 py-2 rounded-xl border border-[#DDDCCF] text-[#3E5C76] hover:text-[#1D2D44] text-xs font-semibold cursor-pointer transition-colors disabled:opacity-40"
                 >
                   Cancel
                 </button>
@@ -1680,7 +1703,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={handleConfirmAvatarUpload}
                   disabled={avatarUploading}
-                  className="btn-primary-purple px-5 py-2 rounded-xl text-xs font-semibold text-white flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow-md shadow-purple-600/30"
+                  className="bg-[#1D2D44] hover:bg-[#0D1321] text-[#F0EBD8] px-5 py-2 rounded-xl text-xs font-semibold text-[#F0EBD8] flex items-center gap-2 cursor-pointer disabled:opacity-50 shadow-sm"
                 >
                   {avatarUploading ? (
                     <>
@@ -1701,19 +1724,19 @@ export default function ProfilePage() {
 
         {/* Modal: Remove Avatar Confirmation */}
         {isRemoveAvatarModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-            <div className="w-full max-w-sm p-6 rounded-2xl bg-[#0D1528] border border-rose-500/30 shadow-2xl space-y-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
+            <div className="w-full max-w-sm p-6 rounded-2xl bg-[#FFFFFF] border border-[#B65C50]/30 shadow-2xl space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F7EAE6] border border-[#B65C50]/30 flex items-center justify-center text-[#B65C50] shrink-0">
                   <Trash2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">Reset Avatar</h3>
-                  <p className="text-xs text-slate-400">Restore default robot icon</p>
+                  <h3 className="text-sm font-bold text-[#0D1321]">Reset Avatar</h3>
+                  <p className="text-xs text-[#3E5C76]">Restore default robot icon</p>
                 </div>
               </div>
 
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p className="text-xs text-[#0D1321] leading-relaxed">
                 Are you sure you want to remove your custom profile picture? This will delete the image from Cloudinary and restore your default robot avatar.
               </p>
 
@@ -1722,7 +1745,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={() => setIsRemoveAvatarModalOpen(false)}
                   disabled={avatarRemoving}
-                  className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 rounded-xl border border-[#DDDCCF] bg-[#F7F5EF] text-[#0D1321] hover:bg-[#EAE5D9] text-xs font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1730,7 +1753,7 @@ export default function ProfilePage() {
                   type="button"
                   onClick={handleRemoveAvatar}
                   disabled={avatarRemoving}
-                  className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-xs font-semibold text-white flex items-center gap-2 cursor-pointer disabled:opacity-50 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-[#B65C50] hover:bg-[#A04E43] text-xs font-semibold text-[#F0EBD8] flex items-center gap-2 cursor-pointer disabled:opacity-50 transition-colors shadow-sm"
                 >
                   {avatarRemoving ? (
                     <>

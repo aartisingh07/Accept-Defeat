@@ -332,8 +332,11 @@ module.exports = (authenticateToken) => {
       if (err.code === 11000) {
         return res.status(409).json({ message: 'Username is already taken. Please choose a different username.' });
       }
+      if (err.name === 'ValidationError') {
+        return res.status(400).json({ message: err.message });
+      }
       console.error('Username change error:', err);
-      return res.status(500).json({ message: 'Failed to update username' });
+      return res.status(500).json({ message: err.message || 'Failed to update username' });
     }
   });
 
