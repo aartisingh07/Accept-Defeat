@@ -94,6 +94,53 @@ const userSchema = mongoose.Schema({
         type: String,
         default: null,
     },
+    role: {
+        type: String,
+        enum: ["user", "admin", "superadmin"],
+        default: "user",
+        index: true
+    },
+    permissions: {
+        type: [String],
+        default: []
+    },
+    status: {
+        type: String,
+        enum: ["active", "suspended", "deactivated"],
+        default: "active",
+        index: true
+    },
+    statusReason: {
+        type: String,
+        default: null
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+        index: true
+    },
+    deletedAt: {
+        type: Date,
+        default: null
+    },
+    deletedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: null
+    },
+    approvedAt: {
+        type: Date,
+        default: null
+    },
+    approvedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: null
+    },
+    lastLoginAt: {
+        type: Date,
+        default: null
+    },
     createdAt : {
         type : Date,
         default : Date.now
@@ -242,13 +289,27 @@ app.post("/api/auth/login", async(req, res)=>{
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch) return res.status(401).json({message : "Invalid credentials"})
 
+        if (user.isDeleted || user.status === 'suspended') {
+            return res.status(403).json({
+                message: "Your account has been suspended or deactivated. Please contact support.",
+                code: "ACCOUNT_SUSPENDED"
+            });
+        }
+
+        user.lastLoginAt = new Date();
+        await user.save();
+
         const { token } = await createSessionToken(user._id, tabId, forceReset)
         return res.status(200).json({
             user : {
                 id : user._id,
                 username : user.username,
                 name : user.name || "",
-                email : user.email
+                email : user.email,
+                role : user.role || "user",
+                permissions : user.permissions || [],
+                status : user.status || "active",
+                avatar : user.avatar
             },
             token
         })
@@ -322,11 +383,31 @@ const authenticateToken = (req, res, next)=>{
             }
         }    
         req.userId = decoded.id
+        try {
+            const user = await User.findById(decoded.id).select("-password")
+            if(!user) {
+                return res.status(401).json({message : "User not found or account removed", code : "USER_NOT_FOUND"})
+            }
+            if(user.isDeleted || user.status === 'suspended') {
+                return res.status(403).json({message : "Account suspended or deactivated", code : "ACCOUNT_SUSPENDED"})
+            }
+            req.user = user
+        }
+        catch(uErr) {
+            console.error("User lookup in auth error:", uErr)
+            return res.status(500).json({message : "User authentication error"})
+        }
         next()
     })
 }
 const profileRoutes = require("./routes/profileRoutes")
 app.use("/api/users", profileRoutes(authenticateToken))
+
+const superAdminRoutes = require("./routes/superAdminRoutes")
+const adminApplicationRoutes = require("./routes/adminApplicationRoutes")
+
+app.use("/api/superadmin", superAdminRoutes(authenticateToken, createSessionToken))
+app.use("/api/admin", adminApplicationRoutes())
 
 app.get("/api/auth/me", authenticateToken, async(req, res)=>{
     try {
@@ -338,6 +419,10 @@ app.get("/api/auth/me", authenticateToken, async(req, res)=>{
             username : user.username,
             name : user.name || "",
             email : user.email,
+            role : user.role || "user",
+            permissions : user.permissions || [],
+            status : user.status || "active",
+            avatar : user.avatar,
             skills : user.skills || ["React", "Node.js", "MongoDB", "JavaScript"],
             createdAt : user.createdAt
         })

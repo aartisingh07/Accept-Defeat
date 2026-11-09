@@ -1,4 +1,10 @@
 {
+  "name": "be",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "seed:superadmin": "node scripts/provisionSuperAdmin.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.11.0",

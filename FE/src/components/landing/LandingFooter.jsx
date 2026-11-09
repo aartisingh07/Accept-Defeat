@@ -30,7 +30,7 @@ export default function LandingFooter() {
             </p>
             <div className="pt-2 flex items-center gap-3">
               <a
-                href="https://github.com"
+                href="https://github.com/aartisingh07"
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-xl bg-[#152237] border border-[#34465C] hover:border-[#748CAB] text-[#F0EBD8] hover:text-[#FFFFFF] flex items-center justify-center transition-all cursor-pointer shadow-sm"

@@ -34,7 +34,6 @@ export default function LandingNavbar() {
     { label: 'Features', onClick: () => scrollToSection('features') },
     { label: 'How It Works', onClick: () => scrollToSection('how-it-works') },
     { label: 'Challenges', onClick: () => navigate('/challenges') },
-    { label: 'Leaderboard', onClick: () => scrollToSection('competitive-arena') },
   ];
 
   return (

@@ -2,12 +2,26 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PublicOnlyRoute from './components/auth/PublicOnlyRoute';
+import SuperAdminRoute from './components/auth/SuperAdminRoute';
+import SuperAdminLayout from './components/superadmin/SuperAdminLayout';
+
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import ExploreChallengesPage from './pages/ExploreChallengesPage';
 import OAuthCallbackPage from './pages/OAuthCallbackPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminApplicationPage from './pages/admin/AdminApplicationPage';
+
+import SuperAdminLoginPage from './pages/superadmin/SuperAdminLoginPage';
+import SuperAdminOverviewPage from './pages/superadmin/SuperAdminOverviewPage';
+import AdminApplicationsPage from './pages/superadmin/AdminApplicationsPage';
+import AdminManagementPage from './pages/superadmin/AdminManagementPage';
+import PermissionManagementPage from './pages/superadmin/PermissionManagementPage';
+import UserModerationPage from './pages/superadmin/UserModerationPage';
+import AuditLogsPage from './pages/superadmin/AuditLogsPage';
+import PlatformSettingsPage from './pages/superadmin/PlatformSettingsPage';
+
 import {
   LiveBattlesPage,
   CreateChallengePage,
@@ -49,13 +63,19 @@ export default function App() {
             }
           />
 
+          {/* Public Admin Application Portal */}
+          <Route path="/admin/apply" element={<AdminApplicationPage />} />
+
+          {/* Super Admin Login (Dedicated entry) */}
+          <Route path="/superadmin/login" element={<SuperAdminLoginPage />} />
+
           {/* OAuth Callback handler */}
           <Route path="/auth/callback" element={<OAuthCallbackPage />} />
 
           {/* Public Browsing for Challenges (Accessible without signing in per specs) */}
           <Route path="/challenges" element={<ExploreChallengesPage />} />
 
-          {/* Protected Dashboard Routes */}
+          {/* Protected Developer Dashboard Routes */}
           <Route
             path="/dashboard"
             element={
@@ -128,6 +148,24 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Super Admin Console Protected Portal */}
+          <Route
+            path="/superadmin"
+            element={
+              <SuperAdminRoute>
+                <SuperAdminLayout />
+              </SuperAdminRoute>
+            }
+          >
+            <Route index element={<SuperAdminOverviewPage />} />
+            <Route path="applications" element={<AdminApplicationsPage />} />
+            <Route path="admins" element={<AdminManagementPage />} />
+            <Route path="permissions" element={<PermissionManagementPage />} />
+            <Route path="users" element={<UserModerationPage />} />
+            <Route path="audit-logs" element={<AuditLogsPage />} />
+            <Route path="settings" element={<PlatformSettingsPage />} />
+          </Route>
 
           {/* Fallback to home */}
           <Route path="*" element={<Navigate to="/" replace />} />

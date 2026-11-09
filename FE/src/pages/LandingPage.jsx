@@ -4,9 +4,6 @@ import LandingNavbar from '../components/landing/LandingNavbar';
 import HeroSection from '../components/landing/HeroSection';
 import FeaturesSection from '../components/landing/FeaturesSection';
 import HowItWorksSection from '../components/landing/HowItWorksSection';
-import ChallengePreviewSection from '../components/landing/ChallengePreviewSection';
-import CompetitiveArenaSection from '../components/landing/CompetitiveArenaSection';
-import RewardsSection from '../components/landing/RewardsSection';
 import FinalCTASection from '../components/landing/FinalCTASection';
 import LandingFooter from '../components/landing/LandingFooter';
 
@@ -57,15 +54,6 @@ export default function LandingPage() {
 
         {/* Section 4: How It Works */}
         <HowItWorksSection />
-
-        {/* Section 5: Challenge Preview */}
-        <ChallengePreviewSection />
-
-        {/* Section 6: Competitive Arena */}
-        <CompetitiveArenaSection />
-
-        {/* Section 7: Rewards and Progression */}
-        <RewardsSection />
 
         {/* Section 8: Final Call to Action */}
         <FinalCTASection />
